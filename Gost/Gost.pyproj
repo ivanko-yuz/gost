@@ -29,21 +29,25 @@
   <ItemGroup>
     <Folder Include="db\" />
     <Folder Include="C:\Users\Ivan\source\repos\Gost\Gost\model\" />
+    <Folder Include="model\" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="db\db_connect.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="db\db_create.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="db\db_select.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="db\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="main.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="model\expense.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="model\income.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="model\transaction.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="model\transaction_type.py">
+    <Compile Include="model\song.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="model\__init__.py">

@@ -30,6 +30,7 @@
   <ItemGroup>
     <Folder Include="db\" />
     <Folder Include="C:\Users\Ivan\source\repos\Gost\Gost\model\" />
+    <Folder Include="managers\" />
     <Folder Include="model\" />
     <Folder Include="C:\Users\Ivan\source\repos\Gost\Gost\managers\" />
   </ItemGroup>

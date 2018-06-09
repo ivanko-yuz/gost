@@ -4,7 +4,7 @@ from model.song import Song
 from db.db_connect import connect
 
 
-def get_songs():
+def select():
 
     conn, cursor = connect()
 

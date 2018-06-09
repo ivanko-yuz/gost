@@ -11,7 +11,8 @@
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
     <LaunchProvider>Web launcher</LaunchProvider>
-    <WebBrowserUrl>http://localhost</WebBrowserUrl>
+    <WebBrowserUrl>
+    </WebBrowserUrl>
     <OutputPath>.</OutputPath>
     <SuppressCollectPythonCloudServiceFiles>true</SuppressCollectPythonCloudServiceFiles>
     <Name>Gost</Name>
@@ -30,12 +31,25 @@
     <Folder Include="db\" />
     <Folder Include="C:\Users\Ivan\source\repos\Gost\Gost\model\" />
     <Folder Include="model\" />
+    <Folder Include="C:\Users\Ivan\source\repos\Gost\Gost\managers\" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="managers\dataManager.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="managers\namingManager.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="managers\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="db\db_connect.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="db\db_create.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="db\db_insert.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="db\db_select.py">

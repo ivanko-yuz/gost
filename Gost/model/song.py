@@ -1,4 +1,6 @@
 
+import json
+
 from datetime import datetime
 
 from marshmallow import Schema, fields
@@ -13,12 +15,8 @@ class Song:
         #self.updated_at = datetime.strptime(updated_at)
         #datetime.datetime.now()
 
-    def serialize(self):
-        return {
-             'song_id'     : self.song_id,
-             'song_title'  : self.song_title,
-             'song_author' : self.song_author
-        }
+    def obj_dict(obj):
+        return obj.__dict__
 
     def __repr__(self):
         return self.song_title

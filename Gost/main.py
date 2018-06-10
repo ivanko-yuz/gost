@@ -12,7 +12,7 @@ import json
 
 #INITIAL SETUP
 #create()
-#dm_run();
+dm_run();
 
 
 

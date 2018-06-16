@@ -35,10 +35,19 @@
     <Folder Include="C:\Users\Ivan\source\repos\Gost\Gost\managers\" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="managers\csvManager.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="managers\dataManager.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="managers\namingManager.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="managers\superivdesLearningManager.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="managers\unsupervisedLearningManager.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="managers\__init__.py">

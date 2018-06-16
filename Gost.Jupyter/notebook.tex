@@ -1,0 +1,2653 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Gost.Jupyter}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{Why this data ?}\label{why-this-data}
+
+    \begin{verbatim}
+<li> Can't remember a familiar song in the club or the restaurant. But the sentimentality of the song really touches your heart. You desperately want to heart it tomorrow. </li>
+<li>You have a phone with music recognition software installed so the software tell you the name of the song, and you know that you can hear it again and again until it becomes a part of you…or you get sick of it.</li>
+<li>Wanted to add something similar to software recognition in our application so we changed data </li>
+\end{verbatim}
+
+    \section{Description of Data Set}\label{description-of-data-set}
+
+    Our data set includes
+
+\begin{verbatim}
+<li> Song Tittle</li>
+<li> Song Author</li>
+<li> Song Genre </li>
+<li> Song Fingerprints </li>
+\end{verbatim}
+
+    \section{Gathering all data set}\label{gathering-all-data-set}
+
+    We started our way with datasets, so we put songs in folder and started
+converting each to byte array
+
+From songs name we have author, tittle, genre and fingerprint
+
+Converting each song into bytes array by using code below
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{fs}\PY{p}{,} \PY{n}{data} \PY{o}{=} \PY{n}{wavfile}\PY{o}{.}\PY{n}{read}\PY{p}{(}\PY{n}{filename}\PY{p}{)} \PY{c+c1}{\PYZsh{} load the data}
+\end{Verbatim}
+
+
+    Plotting the data of one of out songs
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} this is a two channel soundtrack, I get the first track}
+        \PY{n}{a} \PY{o}{=} \PY{n}{data}\PY{o}{.}\PY{n}{T}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} 
+        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{a}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} 
+        \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    representation of one song in byte format
+
+    \section{The Discrete Fourier
+Transform}\label{the-discrete-fourier-transform}
+
+So we need to find a way to convert our signal from the time domain to
+the frequency domain. Here we call on the Discrete Fourier Transform
+(DFT) for help. The DFT is a mathematical methodology for performing
+Fourier analysis on a discrete (sampled) signal. It converts a finite
+list of equally spaced samples of a function into the list of
+coefficients of a finite combination of complex sinusoids, ordered by
+their frequencies, by considering if those sinusoids had been sampled at
+the same rate.
+
+One of the most popular numerical algorithms for the calculation of DFT
+is the Fast Fourier transform (FFT). By far the most commonly used
+variation of FFT is the Cooley--Tukey algorithm. This is a
+divide-and-conquer algorithm that recursively divides a DFT into many
+smaller DFTs. Whereas evaluating a DFT directly requires O(n2)
+operations, with a Cooley-Tukey FFT the same result is computed in O(n
+log n) operations.
+
+So the song after the FFT Analysis
+
+It's not hard to find an appropriate library for FFT. Here are few of
+them: Python -- NumPy
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} this is 8\PYZhy{}bit track, b is now normalized on [\PYZhy{}1,1)}
+        \PY{n}{b}\PY{o}{=}\PY{p}{[}\PY{p}{(}\PY{n}{ele}\PY{o}{/}\PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{l+m+mf}{8.}\PY{p}{)}\PY{o}{*}\PY{l+m+mi}{2}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1} \PY{k}{for} \PY{n}{ele} \PY{o+ow}{in} \PY{n}{a}\PY{p}{]} 
+        \PY{c+c1}{\PYZsh{} calculate fourier transform (complex numbers list)}
+        \PY{n}{c} \PY{o}{=} \PY{n}{fft}\PY{p}{(}\PY{n}{b}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{} you only need half of the fft list (real signal symmetry)}
+        \PY{n}{d} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{c}\PY{p}{)}\PY{o}{/}\PY{l+m+mi}{2}\PY{p}{)}  
+        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n+nb}{abs}\PY{p}{(}\PY{n}{c}\PY{p}{[}\PY{p}{:}\PY{p}{(}\PY{n}{d}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{]}\PY{p}{)}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} 
+        \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    in frequency domain our song looks like this
+
+    Analyzing a signal in the frequency domain simplifies many things
+immensely. It is more convenient in the world of digital signal
+processing because the engineer can study the spectrum (the
+representation of the signal in the frequency domain) and determine
+which frequencies are present, and which are missing. After that, one
+can do filtering, increase or decrease some frequencies, or just
+recognize the exact tone from the given frequencies.
+
+    One unfortunate side effect of FFT is that we lose a great deal of
+information about timing. (Although theoretically this can be avoided,
+the performance overheads are enormous.) For a three-minute song, we see
+all the frequencies and their magnitudes, but we don't have a clue when
+in the song they appeared. But this is the key information that makes
+the song what it is! Somehow we need to at know what point of time each
+frequency appeared.
+
+    So instead of analyzing the entire frequency range at once, we can
+choose several smaller intervals, chosen based on the common frequencies
+of important musical components, and analyze each separately. For
+example, we might use the intervalslike this 30 Hz - 40 Hz, 40 Hz - 80
+Hz and 80 Hz - 120 Hz for the low tones (covering bass guitar, for
+example), and 120 Hz - 180 Hz and 180 Hz - 300 Hz for the middle and
+higher tones (covering vocals and most other instruments).
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{k}{def} \PY{n+nf}{get\PYZus{}index}\PY{p}{(}\PY{n}{freq}\PY{p}{)}\PY{p}{:}
+        
+            \PY{n}{RANGE} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{40}\PY{p}{,} \PY{l+m+mi}{80}\PY{p}{,} \PY{l+m+mi}{120}\PY{p}{,} \PY{l+m+mi}{180}\PY{p}{,} \PY{l+m+mi}{300}\PY{p}{]}
+        
+            \PY{n}{i} \PY{o}{=} \PY{l+m+mi}{0}
+            \PY{k}{while} \PY{p}{(} \PY{n}{RANGE}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{\PYZlt{}} \PY{n}{freq} \PY{p}{)}\PY{p}{:}
+                \PY{n}{i} \PY{o}{=} \PY{n}{i} \PY{o}{+} \PY{l+m+mi}{1}
+        
+            \PY{k}{return} \PY{n}{i}
+\end{Verbatim}
+
+
+    Below is function which gose through all song bytes spitting it for
+small invervals and on each runs Fourier Transform
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{k}{def} \PY{n+nf}{fourier\PYZus{}transform}\PY{p}{(}\PY{n}{data}\PY{p}{)}\PY{p}{:}
+           
+            \PY{n}{a} \PY{o}{=} \PY{n}{data}\PY{o}{.}\PY{n}{T}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+            
+            \PY{n}{total\PYZus{}size} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{a}\PY{p}{)}
+            \PY{n}{chunk\PYZus{}size} \PY{o}{=} \PY{l+m+mi}{4096}\PY{p}{;}
+        
+            \PY{n}{sampled\PYZus{}chunk\PYZus{}size} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n}{total\PYZus{}size}\PY{o}{/}\PY{n}{chunk\PYZus{}size}\PY{p}{)}\PY{p}{;}
+            \PY{n}{result} \PY{o}{=} \PY{p}{[}\PY{p}{]}\PY{p}{;}
+            \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{sampled\PYZus{}chunk\PYZus{}size}\PY{p}{)}\PY{p}{:}
+                   \PY{n}{complex\PYZus{}array} \PY{o}{=} \PY{p}{[}\PY{p}{]}\PY{p}{;} 
+                   
+                   \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{chunk\PYZus{}size}\PY{p}{)}\PY{p}{:}
+                        \PY{n}{complex\PYZus{}array}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n+nb}{complex}\PY{p}{(}\PY{n}{a}\PY{p}{[}\PY{p}{(}\PY{n}{j}\PY{o}{*}\PY{n}{chunk\PYZus{}size}\PY{p}{)}\PY{o}{+}\PY{n}{i}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{)}\PY{p}{)}
+                   \PY{n}{result}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{fft}\PY{p}{(}\PY{n}{complex\PYZus{}array}\PY{p}{)}\PY{p}{)}
+        
+            \PY{k}{return} \PY{n}{result}
+\end{Verbatim}
+
+
+    After getting result from prev function we go through all intervals and
+finding max magetude and frequescy for each range i.e {[}40-80{]} than
+{[}80-120{]} and so on....
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{k}{def} \PY{n+nf}{get\PYZus{}magnetude}\PY{p}{(}\PY{n}{result}\PY{p}{)}\PY{p}{:}
+            \PY{n}{high\PYZus{}scores} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+            \PY{n}{freq\PYZus{}score} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+            \PY{k}{for} \PY{n}{t} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{result}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                \PY{n+nb}{max} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}
+                \PY{n}{freq\PYZus{}max} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}
+                \PY{k}{for} \PY{n}{freq} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{40}\PY{p}{,}\PY{l+m+mi}{300}\PY{p}{)}\PY{p}{:}
+                    \PY{n}{mag} \PY{o}{=} \PY{n}{math}\PY{o}{.}\PY{n}{log}\PY{p}{(}\PY{n+nb}{abs}\PY{p}{(}\PY{n}{result}\PY{p}{[}\PY{n}{t}\PY{p}{]}\PY{p}{[}\PY{n}{freq}\PY{p}{]}\PY{p}{)} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{)}
+            
+                    \PY{n}{index} \PY{o}{=} \PY{n}{get\PYZus{}index}\PY{p}{(}\PY{n}{freq}\PY{p}{)}
+            
+                    \PY{k}{if} \PY{p}{(}\PY{n}{mag} \PY{o}{\PYZgt{}} \PY{n+nb}{max}\PY{p}{[}\PY{n}{index}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+                        \PY{n+nb}{max}\PY{p}{[}\PY{n}{index}\PY{p}{]} \PY{o}{=} \PY{n}{mag}
+                        \PY{n}{freq\PYZus{}max}\PY{p}{[}\PY{n}{index}\PY{p}{]} \PY{o}{=} \PY{n}{freq}
+            
+                \PY{n}{high\PYZus{}scores}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n+nb}{max}\PY{p}{)}
+                \PY{n}{freq\PYZus{}score}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n+nb}{hash}\PY{p}{(}\PY{n}{freq\PYZus{}max}\PY{p}{)}\PY{p}{)}
+        
+            \PY{k}{return} \PY{n}{high\PYZus{}scores}\PY{p}{,} \PY{n}{freq\PYZus{}score}
+\end{Verbatim}
+
+
+    This function converts our chunk ( array of 5 elements to an hashnumber
+) we are not using last element w.r.t. faster calculations
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{k}{def} \PY{n+nf}{hash}\PY{p}{(}\PY{n}{freq}\PY{p}{)}\PY{p}{:}
+            \PY{n}{FUZ\PYZus{}FACTOR} \PY{o}{=} \PY{l+m+mi}{2}\PY{p}{;}
+            \PY{n}{p0} \PY{o}{=} \PY{n}{freq}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+            \PY{n}{p1} \PY{o}{=} \PY{n}{freq}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+            \PY{n}{p2} \PY{o}{=} \PY{n}{freq}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}
+            \PY{n}{p3} \PY{o}{=} \PY{n}{freq}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]}
+            \PY{k}{return}  \PY{p}{(}\PY{n}{p3}\PY{o}{\PYZhy{}}\PY{p}{(}\PY{n}{p3}\PY{o}{\PYZpc{}}\PY{k}{FUZ\PYZus{}FACTOR})) * 100000000 + (p2\PYZhy{}(p2\PYZpc{}FUZ\PYZus{}FACTOR)) * 100000  + (p1\PYZhy{}(p1\PYZpc{}FUZ\PYZus{}FACTOR)) * 100 + (p0\PYZhy{}(p0\PYZpc{}FUZ\PYZus{}FACTOR));
+\end{Verbatim}
+
+
+    That is our main functoin, which goes through all songs in folder and
+doing algorithm which was described above
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{k}{def} \PY{n+nf}{dm\PYZus{}run}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+        
+               \PY{n}{path} \PY{o}{=} \PY{n}{os}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{dirname}\PY{p}{(}\PY{n}{os}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{abspath}\PY{p}{(}\PY{n+nv+vm}{\PYZus{}\PYZus{}file\PYZus{}\PYZus{}}\PY{p}{)}\PY{p}{)} \PY{o}{+} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}\PYZbs{}}\PY{l+s+s1}{music}\PY{l+s+se}{\PYZbs{}\PYZbs{}}\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{*.wav}\PY{l+s+s1}{\PYZsq{}}
+        
+               \PY{c+c1}{\PYZsh{}in\PYZus{}file = open(\PYZdq{}Come A Little Bit Closer  \PYZhy{}  Jay  The Americans.wav.txt\PYZdq{}, \PYZdq{}rb\PYZdq{}) \PYZsh{} opening for [r]eading as [b]inary}
+               \PY{c+c1}{\PYZsh{}data = in\PYZus{}file.read() \PYZsh{} if you only wanted to read 512 bytes, do .read(512)}
+               \PY{c+c1}{\PYZsh{}in\PYZus{}file.close()}
+        
+               \PY{n}{end\PYZus{}data} \PY{o}{=} \PY{p}{[}\PY{p}{]}\PY{p}{;}
+               \PY{n}{end\PYZus{}data\PYZus{}author} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+               \PY{n}{end\PYZus{}data\PYZus{}title} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+               \PY{n}{end\PYZus{}data\PYZus{}style} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+        
+               \PY{n}{counter} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{;}
+               \PY{k}{for} \PY{n}{filename} \PY{o+ow}{in} \PY{n}{glob}\PY{o}{.}\PY{n}{glob}\PY{p}{(}\PY{n}{path}\PY{p}{)}\PY{p}{:}
+        
+                   \PY{k}{try}\PY{p}{:}
+                        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Uplodaing song number }\PY{l+s+si}{\PYZob{}0\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{counter}\PY{p}{)}\PY{p}{)}
+        
+                        \PY{n}{name} \PY{o}{=} \PY{n}{os}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{basename}\PY{p}{(}\PY{n}{filename}\PY{p}{)}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+                        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Magic with file }\PY{l+s+si}{\PYZob{}0\PYZcb{}}\PY{l+s+s1}{ started}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{name}\PY{p}{)}\PY{p}{)}
+        
+                        \PY{n}{fs}\PY{p}{,} \PY{n}{data} \PY{o}{=} \PY{n}{wavfile}\PY{o}{.}\PY{n}{read}\PY{p}{(}\PY{n}{filename}\PY{p}{)} \PY{c+c1}{\PYZsh{} load the data}
+        
+                        \PY{n}{author}\PY{p}{,} \PY{n}{tittle}\PY{p}{,} \PY{n}{style} \PY{o}{=} \PY{n}{nm\PYZus{}run}\PY{p}{(}\PY{n}{name}\PY{p}{)}
+        
+                        \PY{n}{result} \PY{o}{=} \PY{n}{fourier\PYZus{}transform}\PY{p}{(}\PY{n}{data}\PY{p}{)} 
+        
+                        \PY{n}{high\PYZus{}scores}\PY{p}{,} \PY{n}{freq\PYZus{}score} \PY{o}{=} \PY{n}{get\PYZus{}magnetude}\PY{p}{(}\PY{n}{result}\PY{p}{)}
+        
+                        \PY{c+c1}{\PYZsh{}insert(tittle, author)}
+                        \PY{n+nb}{print}\PY{p}{(}\PY{n}{name}\PY{p}{)}
+                        \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{freq\PYZus{}score}\PY{p}{)}\PY{p}{)}
+                        \PY{n+nb}{print}\PY{p}{(}\PY{n}{freq\PYZus{}score}\PY{p}{)}
+        
+                        \PY{c+c1}{\PYZsh{}plt.plot( high\PYZus{}scores, freq\PYZus{}score ,\PYZsq{}ro\PYZsq{})}
+                        \PY{c+c1}{\PYZsh{}plt.show()}
+        
+                        \PY{c+c1}{\PYZsh{}plt.plot(freq\PYZus{}score, \PYZsq{}ro\PYZsq{})}
+                        \PY{c+c1}{\PYZsh{}plt.show()}
+        
+        
+                        \PY{n}{end\PYZus{}data}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{freq\PYZus{}score}\PY{p}{)}
+                        \PY{n}{end\PYZus{}data\PYZus{}author}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{author}\PY{p}{)}
+                        \PY{n}{end\PYZus{}data\PYZus{}title}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{tittle}\PY{p}{)}
+                        \PY{n}{end\PYZus{}data\PYZus{}style}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{style}\PY{p}{)}
+                        \PY{n}{counter} \PY{o}{=} \PY{n}{counter} \PY{o}{+} \PY{l+m+mi}{1}
+                   \PY{k}{except} \PY{n+ne}{IOError} \PY{k}{as} \PY{n}{e}\PY{p}{:}
+                        \PY{n+nb}{print} \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{I/O error(}\PY{l+s+si}{\PYZob{}0\PYZcb{}}\PY{l+s+s2}{): }\PY{l+s+si}{\PYZob{}1\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{e}\PY{o}{.}\PY{n}{errno}\PY{p}{,} \PY{n}{e}\PY{o}{.}\PY{n}{strerror}\PY{p}{)}\PY{p}{)}
+                   \PY{k}{except} \PY{n+ne}{ValueError}\PY{p}{:}
+                       \PY{n+nb}{print} \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Could not convert data to an integer.}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+                   \PY{k}{except}\PY{p}{:}
+                       \PY{n+nb}{print} \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Unexpected error:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{sys}\PY{o}{.}\PY{n}{exc\PYZus{}info}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+         
+               \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{uploading started}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        
+        
+               \PY{n}{my\PYZus{}df\PYZus{}author} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{end\PYZus{}data\PYZus{}author}\PY{p}{)}
+               \PY{n}{my\PYZus{}df\PYZus{}author}\PY{o}{.}\PY{n}{to\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data\PYZus{}authors.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{index}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,} \PY{n}{header}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+        
+               \PY{n}{my\PYZus{}df\PYZus{}tittle} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{end\PYZus{}data\PYZus{}title}\PY{p}{)}
+               \PY{n}{my\PYZus{}df\PYZus{}tittle}\PY{o}{.}\PY{n}{to\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data\PYZus{}tittles.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{index}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,} \PY{n}{header}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+        
+               \PY{n}{my\PYZus{}df\PYZus{}style} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{end\PYZus{}data\PYZus{}style}\PY{p}{)}
+               \PY{n}{my\PYZus{}df\PYZus{}style}\PY{o}{.}\PY{n}{to\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data\PYZus{}styles.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{index}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,} \PY{n}{header}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+        
+               \PY{n}{my\PYZus{}df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{end\PYZus{}data}\PY{p}{)}
+               \PY{n}{my\PYZus{}df}\PY{o}{.}\PY{n}{to\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{index}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,} \PY{n}{header}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+        
+               \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{uploading ended}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    as output we got 4 CSV files with hashes, tittles, authors, and styles
+of our song
+
+    \section{Now lets start doning
+ANALISYS}\label{now-lets-start-doning-analisys}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{cm} \PY{k}{as} \PY{n+nn}{cm}
+        \PY{k+kn}{import} \PY{n+nn}{csv}
+        \PY{k+kn}{import} \PY{n+nn}{random}
+        \PY{k+kn}{import} \PY{n+nn}{math}
+        \PY{k+kn}{import} \PY{n+nn}{operator}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{preprocessing} \PY{k}{import} \PY{n}{StandardScaler}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{decomposition} \PY{k}{import} \PY{n}{PCA} 
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{cluster} \PY{k}{import} \PY{n}{KMeans}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{metrics} \PY{k}{import} \PY{n}{silhouette\PYZus{}samples}\PY{p}{,} \PY{n}{silhouette\PYZus{}score}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{n}{dfname} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data\PYZus{}tittles.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{,}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{dfname\PYZus{}set} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data\PYZus{}tittles.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{,}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{header}\PY{o}{=}\PY{k+kc}{None}\PY{p}{)}
+        \PY{n}{dfname\PYZus{}set}\PY{o}{.}\PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Title}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{n}{dfstyle} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data\PYZus{}styles.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{,}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{dfgenre\PYZus{}set} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data\PYZus{}styles.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{,}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{header}\PY{o}{=}\PY{k+kc}{None}\PY{p}{)}
+        \PY{n}{dfgenre\PYZus{}set}\PY{o}{.}\PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Genre}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        \PY{n}{dfgenre\PYZus{}set}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Genre}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{dfgenre\PYZus{}set}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Genre}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{str}\PY{o}{.}\PY{n}{strip}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{n}{dfauthor} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data\PYZus{}authors.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{,}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{dfauthor\PYZus{}set} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data\PYZus{}authors.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{,}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{header}\PY{o}{=}\PY{k+kc}{None}\PY{p}{)}
+        \PY{n}{dfauthor\PYZus{}set}\PY{o}{.}\PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Author}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{n}{dfhashes} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{,}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{dfhashes\PYZus{}set} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{,}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{header}\PY{o}{=}\PY{k+kc}{None}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{concat}\PY{p}{(}\PY{p}{[}\PY{n}{dfhashes}\PY{p}{,} \PY{n}{dfstyle}\PY{p}{]}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{join}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{inner}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{df\PYZus{}full} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{concat}\PY{p}{(}\PY{p}{[}\PY{n}{dfhashes\PYZus{}set}\PY{p}{,} \PY{n}{dfauthor\PYZus{}set}\PY{p}{,} \PY{n}{dfname\PYZus{}set}\PY{p}{,} \PY{n}{dfgenre\PYZus{}set}\PY{p}{]} \PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+\end{Verbatim}
+
+
+    \section{Data cleaning}\label{data-cleaning}
+
+    Each song have different length and frequencies, so cleaning data is
+important.
+
+If length of one song is shorter than the other we are adding the zeros
+frequency in the end so that the length of songs are same and adding
+zeros frequency means we are adding the silence.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}160}]:} \PY{n}{df\PYZus{}full} \PY{o}{=} \PY{n}{df\PYZus{}full}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}
+          \PY{n}{df\PYZus{}full}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}160}]:}               0            1            2            3            4  \textbackslash{}
+          0             0            0            0            0            0   
+          1             0            0  14810205840            0  14209405040   
+          2             0  12008004040  13211004040  13208007440  12408204040   
+          3             0            0  12609404840  17208007240  12608005440   
+          4             0            0            0            0            0   
+          5   12208207640  12410404240  17809005640  18010404440  15410406040   
+          6   12009805640  16410805440  13010805440  13010804240  13010804240   
+          7             0            0            0            0            0   
+          8   16810604040  13411404240            0            0            0   
+          9             0            0            0            0  12808405440   
+          10  15809604440  14410004640  14608204440  14808805840  16409806440   
+          11            0            0  17008204440  12809205040  16211804640   
+          12            0            0  15009807840  13009004640  15610606240   
+          13            0            0  12008404040  14410406640  13608607440   
+          14            0            0            0            0            0   
+          15            0            0            0  13008404040  14009204840   
+          16            0            0            0            0            0   
+          17            0            0            0  12810604040  12209806040   
+          18            0  13409605040  12210205040  14408204640  15009605840   
+          19            0            0            0            0            0   
+          20  12008005240  15010805640  15809204640  13010004640  16610804640   
+          21            0            0            0            0  12210807240   
+          22  12608204440  12608804640  12808206440  13408407240  12409406440   
+          23            0  15011805040  15009205040  16408005440  13608205440   
+          24            0            0  14210004440  12210205040  12210205040   
+          25            0            0            0            0  12809805040   
+          26            0            0            0            0            0   
+          27  13809204640  13809204640  13811404640  13809204640  13609204640   
+          28  14011208040  12411604840  12010004640  12208804240  15809404240   
+          29  13809604640  12008604640  13008204440  14409204640  13411604040   
+          ..          {\ldots}          {\ldots}          {\ldots}          {\ldots}          {\ldots}   
+          41            0            0            0  12410005040  14608207240   
+          42            0            0            0            0  13608204240   
+          43            0            0            0            0  16011004240   
+          44            0            0            0  18012005440  13609806040   
+          45            0            0            0  12212007040  15009204240   
+          46            0            0            0            0  14011804240   
+          47            0            0            0  14408606840  12208405240   
+          48            0            0            0            0  16811007240   
+          49            0            0            0  13809004640  13809204440   
+          50            0            0            0            0  13208205840   
+          51            0            0            0            0  13208204640   
+          52            0            0            0  12008004040  14209406240   
+          53            0            0            0            0  15811404240   
+          54            0            0            0  18008004240  15408407040   
+          55            0            0            0  12008004040  14609604040   
+          56  13609205440  15409804640  14812004640  14810404240  12211005440   
+          57  12408004040  16609004440  17008604640  17409204440  17209604640   
+          58  14411207240  12008007240  12609606040  14411806640  12008806840   
+          59  14009805040  14210607240  16409204040  14411604040  14408404640   
+          60  13009404840  12410204640  12009404640  12409204640  14809204240   
+          61            0  14209605840  15411605840  15409007640  14211605240   
+          62            0  16210405840  17009406240  13809206240  17211404640   
+          63            0            0            0  17608007240  13608204240   
+          64  13008605040  13408605440  12208404640  13608406240  12208205040   
+          65            0            0            0            0            0   
+          66  15811404440  12809404640  15211404640  13011004640  13208004240   
+          67            0            0            0            0            0   
+          68            0            0            0            0            0   
+          69            0  12209204640  17609405240  16809005040  17209804640   
+          70            0            0            0            0            0   
+          
+                        5            6            7            8            9   {\ldots}     \textbackslash{}
+          0   14409608040  14611607240  15011607440  14411607640  12211607840   {\ldots}      
+          1   12009404240  12409404240  16209204840  15409404240  17612004240   {\ldots}      
+          2   17608204040  17608004040  16208004040  12209604040  12208004040   {\ldots}      
+          3   12009005440  15209005440  12210806040  12210805440  12209005440   {\ldots}      
+          4             0            0            0  12008004040  13008004040   {\ldots}      
+          5   14409004640  13408007440  13609006040  13608204640  13408806040   {\ldots}      
+          6   13008604240  13011004240  13010804240  13010804240  13010804240   {\ldots}      
+          7             0            0            0            0            0   {\ldots}      
+          8   12408004240  12408204240  12408204040  16608204840  12208204840   {\ldots}      
+          9   13009005440  13008605840  17408605840  13008605840  17408605840   {\ldots}      
+          10  15408204440  15409805240  14408204440  15411404440  15408205840   {\ldots}      
+          11  17611806240  12211008040  17811404440  13610406840  13810806840   {\ldots}      
+          12  15410807640  15410604640  15410604640  12209206040  12209206040   {\ldots}      
+          13  17808206040  13809406040  12408406040  13608806040  13409406040   {\ldots}      
+          14            0            0            0            0  13609004040   {\ldots}      
+          15  13810804840  13810804840  17609204840  17409604240  17409604040   {\ldots}      
+          16            0  14410207240  13210806440  13210806440  13210606440   {\ldots}      
+          17  12409204640  12808406240  12810606240  12408004240  14608004840   {\ldots}      
+          18  15611605240  15209004640  12810604240  17411805040  14409806440   {\ldots}      
+          19            0            0            0            0            0   {\ldots}      
+          20  12610604640  17011604640  16410204640  13408204640  12208404640   {\ldots}      
+          21  14808206440  13208204240  12408204040  13008204040  16608204040   {\ldots}      
+          22  17408604840  13808805040  16411005440  16408205440  16408205440   {\ldots}      
+          23  13608205440  13608205440  13608205440  13608205440  13608205440   {\ldots}      
+          24  12210404040  12211804040  12212004040  12210204040  12210404040   {\ldots}      
+          25  12809004240  12810404040  12811005640  17411204440  12210204040   {\ldots}      
+          26            0            0  16008606440  16409406040  12008204040   {\ldots}      
+          27  13810204640  13810205440  13610205440  13809205440  13809204640   {\ldots}      
+          28  13410404240  12209206040  12209005840  15811605840  14612005240   {\ldots}      
+          29  15610407440  15409204240  15608004240  12408006440  17608404240   {\ldots}      
+          ..          {\ldots}          {\ldots}          {\ldots}          {\ldots}          {\ldots}   {\ldots}      
+          41  15808007240  14611405440  15211406040  14411406240  12211405440   {\ldots}      
+          42  15008204040  15008204040  15008204040  16408204040  12208204040   {\ldots}      
+          43  12211005240  13409005040  15208604640  17611005240  12608604240   {\ldots}      
+          44  17609807240  15409206840  12411206840  13609607240  17808805440   {\ldots}      
+          45  14209005840  13409004640  13409004440  13409005240  12810604440   {\ldots}      
+          46  12611404040  13008206640  14411004240  14810606040  12408007040   {\ldots}      
+          47  12008606840  15412006840  12208206040  14208006040  12208006040   {\ldots}      
+          48  13811006240  13811006240  12011008040  13410608040  16611005440   {\ldots}      
+          49  13212004040  12210804440  12410804440  13810604240  16809204640   {\ldots}      
+          50  12208204640  13808206240  15210806240  12208207640  14408606040   {\ldots}      
+          51  12411005840  12010807240  12209804040  14611404840  13011404840   {\ldots}      
+          52  15409206840  14409206840  14609206240  13809206840  16009206840   {\ldots}      
+          53  15808604240  13008604240  15808604440  17208404240  17208604240   {\ldots}      
+          54  15608407040  15608407040  15608407040  13408804240  13408804240   {\ldots}      
+          55  14608206240  12008207240  12208207240  12208004040  12208204840   {\ldots}      
+          56  12011005440  12212006240  12209806240  14609804840  12409804840   {\ldots}      
+          57  17009004640  16608205240  12211804440  12809606440  15211406440   {\ldots}      
+          58  12008407840  12208206640  12409207240  14209206840  14208006640   {\ldots}      
+          59  15009204040  13809205640  14609604840  12411804040  12008204240   {\ldots}      
+          60  14609007240  14608207240  14608207240  14609007240  14609007240   {\ldots}      
+          61  12811607640  18011605040  15411605240  15411605040  15411605040   {\ldots}      
+          62  15809007040  15809805440  15410605840  12610805640  12810407840   {\ldots}      
+          63  17211605040  16610606040  16212004440  12411806040  13808804040   {\ldots}      
+          64  14008805240  12208205840  13208004840  12408404240  12609804840   {\ldots}      
+          65            0            0            0            0            0   {\ldots}      
+          66  13608006040  13209004840  16010407440  15008607240  12811405640   {\ldots}      
+          67            0            0            0  14411404640  15010804240   {\ldots}      
+          68            0            0            0            0            0   {\ldots}      
+          69  16808404240  16408204240  16208204040  14009404640  12209004440   {\ldots}      
+          70            0            0            0  14209405640  13008406440   {\ldots}      
+          
+              5208  5209  5210  5211  5212  5213  5214  \textbackslash{}
+          0    0.0   0.0   0.0   0.0   0.0   0.0   0.0   
+          1    0.0   0.0   0.0   0.0   0.0   0.0   0.0   
+          2    0.0   0.0   0.0   0.0   0.0   0.0   0.0   
+          3    0.0   0.0   0.0   0.0   0.0   0.0   0.0   
+          4    0.0   0.0   0.0   0.0   0.0   0.0   0.0   
+          5    0.0   0.0   0.0   0.0   0.0   0.0   0.0   
+          6    0.0   0.0   0.0   0.0   0.0   0.0   0.0   
+          7    0.0   0.0   0.0   0.0   0.0   0.0   0.0   
+          8    0.0   0.0   0.0   0.0   0.0   0.0   0.0   
+          9    0.0   0.0   0.0   0.0   0.0   0.0   0.0   
+          10   0.0   0.0   0.0   0.0   0.0   0.0   0.0   
+          11   0.0   0.0   0.0   0.0   0.0   0.0   0.0   
+          12   0.0   0.0   0.0   0.0   0.0   0.0   0.0   
+          13   0.0   0.0   0.0   0.0   0.0   0.0   0.0   
+          14   0.0   0.0   0.0   0.0   0.0   0.0   0.0   
+          15   0.0   0.0   0.0   0.0   0.0   0.0   0.0   
+          16   0.0   0.0   0.0   0.0   0.0   0.0   0.0   
+          17   0.0   0.0   0.0   0.0   0.0   0.0   0.0   
+          18   0.0   0.0   0.0   0.0   0.0   0.0   0.0   
+          19   0.0   0.0   0.0   0.0   0.0   0.0   0.0   
+          20   0.0   0.0   0.0   0.0   0.0   0.0   0.0   
+          21   0.0   0.0   0.0   0.0   0.0   0.0   0.0   
+          22   0.0   0.0   0.0   0.0   0.0   0.0   0.0   
+          23   0.0   0.0   0.0   0.0   0.0   0.0   0.0   
+          24   0.0   0.0   0.0   0.0   0.0   0.0   0.0   
+          25   0.0   0.0   0.0   0.0   0.0   0.0   0.0   
+          26   0.0   0.0   0.0   0.0   0.0   0.0   0.0   
+          27   0.0   0.0   0.0   0.0   0.0   0.0   0.0   
+          28   0.0   0.0   0.0   0.0   0.0   0.0   0.0   
+          29   0.0   0.0   0.0   0.0   0.0   0.0   0.0   
+          ..   {\ldots}   {\ldots}   {\ldots}   {\ldots}   {\ldots}   {\ldots}   {\ldots}   
+          41   0.0   0.0   0.0   0.0   0.0   0.0   0.0   
+          42   0.0   0.0   0.0   0.0   0.0   0.0   0.0   
+          43   0.0   0.0   0.0   0.0   0.0   0.0   0.0   
+          44   0.0   0.0   0.0   0.0   0.0   0.0   0.0   
+          45   0.0   0.0   0.0   0.0   0.0   0.0   0.0   
+          46   0.0   0.0   0.0   0.0   0.0   0.0   0.0   
+          47   0.0   0.0   0.0   0.0   0.0   0.0   0.0   
+          48   0.0   0.0   0.0   0.0   0.0   0.0   0.0   
+          49   0.0   0.0   0.0   0.0   0.0   0.0   0.0   
+          50   0.0   0.0   0.0   0.0   0.0   0.0   0.0   
+          51   0.0   0.0   0.0   0.0   0.0   0.0   0.0   
+          52   0.0   0.0   0.0   0.0   0.0   0.0   0.0   
+          53   0.0   0.0   0.0   0.0   0.0   0.0   0.0   
+          54   0.0   0.0   0.0   0.0   0.0   0.0   0.0   
+          55   0.0   0.0   0.0   0.0   0.0   0.0   0.0   
+          56   0.0   0.0   0.0   0.0   0.0   0.0   0.0   
+          57   0.0   0.0   0.0   0.0   0.0   0.0   0.0   
+          58   0.0   0.0   0.0   0.0   0.0   0.0   0.0   
+          59   0.0   0.0   0.0   0.0   0.0   0.0   0.0   
+          60   0.0   0.0   0.0   0.0   0.0   0.0   0.0   
+          61   0.0   0.0   0.0   0.0   0.0   0.0   0.0   
+          62   0.0   0.0   0.0   0.0   0.0   0.0   0.0   
+          63   0.0   0.0   0.0   0.0   0.0   0.0   0.0   
+          64   0.0   0.0   0.0   0.0   0.0   0.0   0.0   
+          65   0.0   0.0   0.0   0.0   0.0   0.0   0.0   
+          66   0.0   0.0   0.0   0.0   0.0   0.0   0.0   
+          67   0.0   0.0   0.0   0.0   0.0   0.0   0.0   
+          68   0.0   0.0   0.0   0.0   0.0   0.0   0.0   
+          69   0.0   0.0   0.0   0.0   0.0   0.0   0.0   
+          70   0.0   0.0   0.0   0.0   0.0   0.0   0.0   
+          
+                                           Author                              Title  \textbackslash{}
+          0   Anthony Gonzalez Gael García Bernal                     Un Poco Loco     
+          1                            Ben E King                       Stand By Me    
+          2                             BOB DYLAN                 Mr Tambourine Man    
+          3                         Calvin Harris                             Feels    
+          4                        Camila Cabello                            Havana    
+          5                        Channa Mereya                        Arjit singh    
+          6                       Christina Perri                  A Thousand Years    
+          7                              Coldplay                           Fix You    
+          8                              Coldplay                     The Scientist    
+          9                         Daniel Powter                           Bad Day    
+          10                              Deicide                  Homage for Satan    
+          11                               Eagles                  Hotel California    
+          12                           Ed Sheeran                        Photograph    
+          13                           Ed Sheeran                      Shape of You    
+          14                        Elvis Presley         Cant Help Falling In Love    
+          15                        Frank Sinatra                 Killing me softly    
+          16                        Frank Sinatra            Strangers In the Night    
+          17                        Frank Sinatra          The Way You Look Tonight    
+          18                                Grieg  In the Hall of the Mountain King    
+          19                   Jay  The Americans         Come A Little Bit Closer     
+          20                        Joseph LoDuca             Ashs Dream piano cover   
+          21                       Kelly Clarkson                     Silent Night     
+          22                        Kim Jang Woo                            Destiny    
+          23                                Laura                     Say Something    
+          24                        Laura pausini                   its not goodbye    
+          25                         Led Zeppelin         Stairway To Heaven Lyrics    
+          26                        Lionel Richie                      Endless Love    
+          27                           Luis Fonsi                         Despacito    
+          28                          Nathan Lane                     Hakuna Matata    
+          29                                Oasis                        Wonderwall    
+          ..                                  {\ldots}                                {\ldots}   
+          41                            Scorpions         He's a Woman, She's a Man    
+          42                            Scorpions                           Holiday    
+          43                            Scorpions                     I'm Goin' Mad    
+          44                            Scorpions                         In Trance    
+          45                            Scorpions            Is There Anybody There    
+          46                            Scorpions                     Love Is Blind    
+          47                            Scorpions         Loving You Sunday Morning    
+          48                            Scorpions                      Make It Real    
+          49                            Scorpions                   No one like you    
+          50                            Scorpions            Passion Rules the Game    
+          51                            Scorpions                    Rhythm Of Love    
+          52                            Scorpions         Rock You Like a Hurricane    
+          53                            Scorpions                  Send Me an Angel    
+          54                            Scorpions                  Still Loving You    
+          55                            Scorpions                    Wind of Change    
+          56                         SCOTT JOPLIN                   The Entertainer    
+          57                              Shakira                     Try Everything   
+          58                              Shakira                         Waka Waka    
+          59                               SLAYER                        Repentless    
+          60                           statkowski                               idk    
+          61                     System of a Down                             BYOB     
+          62                            Tom Odell                             Healv    
+          63                        Tracy Chapman                         Fast car     
+          64                    twenty one pilots                         Heathens     
+          65                    twenty one pilots                              Ride    
+          66                             unnnamed                   low\_town\_groove    
+          67                             Westlife         I Wanna Grow Old With You    
+          68                            Zara Zara                        Rahul Jain    
+          69                     Христина Соловій                            Тримай    
+          70                     Христина Соловій                     Хто як не ти     
+          
+                Genre  
+          0       POP  
+          1       POP  
+          2   CLASSIC  
+          3       POP  
+          4       POP  
+          5   UNKNOWN  
+          6       POP  
+          7       POP  
+          8      ROCK  
+          9       POP  
+          10    Metal  
+          11  CLASSIC  
+          12      POP  
+          13      POP  
+          14      POP  
+          15  CLASSIC  
+          16  CLASSIC  
+          17  CLASSIC  
+          18  CLASSIC  
+          19      POP  
+          20  CLASSIC  
+          21      POP  
+          22  CLASSIC  
+          23      POP  
+          24      POP  
+          25     ROCK  
+          26      POP  
+          27      POP  
+          28      POP  
+          29      POP  
+          ..      {\ldots}  
+          41     ROCK  
+          42     ROCK  
+          43     ROCK  
+          44     ROCK  
+          45     ROCK  
+          46     ROCK  
+          47     ROCK  
+          48     ROCK  
+          49     ROCK  
+          50     ROCK  
+          51     ROCK  
+          52     ROCK  
+          53     ROCK  
+          54     ROCK  
+          55     ROCK  
+          56  CLASSIC  
+          57      POP  
+          58      POP  
+          59    Metal  
+          60  CLASSIC  
+          61    Metal  
+          62      POP  
+          63      POP  
+          64      POP  
+          65      POP  
+          66  UNKNOWN  
+          67      POP  
+          68      POP  
+          69      POP  
+          70      POP  
+          
+          [71 rows x 5218 columns]
+\end{Verbatim}
+            
+    Now let's check if dataset has been correctly cleaned looking for NaN
+values
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}161}]:} \PY{n}{df\PYZus{}full}\PY{o}{.}\PY{n}{isnull}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{any}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{any}\PY{p}{(}\PY{p}{)} 
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}161}]:} False
+\end{Verbatim}
+            
+    answer is False, so no NaN values, import is correct
+
+    \section{ Exploratory analysis}\label{exploratory-analysis}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}162}]:} \PY{c+c1}{\PYZsh{}descriptive statistics using pandas method}
+          \PY{n}{df\PYZus{}full}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}162}]:}                0             1             2             3             4     \textbackslash{}
+          count  7.100000e+01  7.100000e+01  7.100000e+01  7.100000e+01  7.100000e+01   
+          mean   3.884340e+09  5.152875e+09  6.559326e+09  8.414028e+09  1.121040e+10   
+          std    6.288815e+09  6.900000e+09  7.399656e+09  7.184579e+09  6.002823e+09   
+          min    0.000000e+00  0.000000e+00  0.000000e+00  0.000000e+00  0.000000e+00   
+          25\%    0.000000e+00  0.000000e+00  0.000000e+00  0.000000e+00  1.220831e+10   
+          50\%    0.000000e+00  0.000000e+00  0.000000e+00  1.240920e+10  1.360820e+10   
+          75\%    1.210901e+10  1.270910e+10  1.440910e+10  1.410871e+10  1.490920e+10   
+          max    1.681060e+10  1.741121e+10  1.780901e+10  1.801201e+10  1.721140e+10   
+          
+                         5             6             7             8             9     \textbackslash{}
+          count  7.100000e+01  7.100000e+01  7.100000e+01  7.100000e+01  7.100000e+01   
+          mean   1.178522e+10  1.174313e+10  1.197729e+10  1.259163e+10  1.264222e+10   
+          std    5.849863e+09  5.536814e+09  5.393917e+09  4.760110e+09  4.558894e+09   
+          min    0.000000e+00  0.000000e+00  0.000000e+00  0.000000e+00  0.000000e+00   
+          25\%    1.210961e+10  1.221091e+10  1.221031e+10  1.241010e+10  1.220900e+10   
+          50\%    1.360821e+10  1.340901e+10  1.340900e+10  1.361041e+10  1.321061e+10   
+          75\%    1.550961e+10  1.480991e+10  1.531101e+10  1.470991e+10  1.481140e+10   
+          max    1.780821e+10  1.801161e+10  1.781140e+10  1.761101e+10  1.780881e+10   
+          
+                 {\ldots}   5205  5206  5207  5208  5209  5210  5211  5212  5213  5214  
+          count  {\ldots}   71.0  71.0  71.0  71.0  71.0  71.0  71.0  71.0  71.0  71.0  
+          mean   {\ldots}    0.0   0.0   0.0   0.0   0.0   0.0   0.0   0.0   0.0   0.0  
+          std    {\ldots}    0.0   0.0   0.0   0.0   0.0   0.0   0.0   0.0   0.0   0.0  
+          min    {\ldots}    0.0   0.0   0.0   0.0   0.0   0.0   0.0   0.0   0.0   0.0  
+          25\%    {\ldots}    0.0   0.0   0.0   0.0   0.0   0.0   0.0   0.0   0.0   0.0  
+          50\%    {\ldots}    0.0   0.0   0.0   0.0   0.0   0.0   0.0   0.0   0.0   0.0  
+          75\%    {\ldots}    0.0   0.0   0.0   0.0   0.0   0.0   0.0   0.0   0.0   0.0  
+          max    {\ldots}    0.0   0.0   0.0   0.0   0.0   0.0   0.0   0.0   0.0   0.0  
+          
+          [8 rows x 5215 columns]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}68}]:} \PY{n}{ganreGrouped} \PY{o}{=} \PY{n}{df\PYZus{}full}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Author}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Author}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}
+         \PY{n}{ganreGrouped}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bar}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{12}\PY{p}{,} \PY{l+m+mi}{12}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{o}{.}\PY{n}{update}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{font.size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{14}\PY{p}{\PYZcb{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_41_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}69}]:} \PY{n}{ganreGrouped} \PY{o}{=} \PY{n}{df\PYZus{}full}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Genre}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Genre}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}
+         \PY{n}{ganreGrouped}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bar}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_42_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}167}]:} \PY{c+c1}{\PYZsh{}Correlation matrix}
+          \PY{n}{correlations} \PY{o}{=} \PY{n}{df\PYZus{}full}\PY{o}{.}\PY{n}{corr}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}
+          \PY{n}{correlations}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}167}]:}           0         1         2         3         4         5         6     \textbackslash{}
+          0     1.000000  0.814685  0.605492  0.422165  0.249182  0.289033  0.276502   
+          1     0.814685  1.000000  0.789197  0.570691  0.368388  0.380233  0.406699   
+          2     0.605492  0.789197  1.000000  0.679394  0.511097  0.463069  0.458144   
+          3     0.422165  0.570691  0.679394  1.000000  0.623773  0.619895  0.601659   
+          4     0.249182  0.368388  0.511097  0.623773  1.000000  0.893085  0.846795   
+          5     0.289033  0.380233  0.463069  0.619895  0.893085  1.000000  0.915614   
+          6     0.276502  0.406699  0.458144  0.601659  0.846795  0.915614  1.000000   
+          7     0.235219  0.314813  0.399739  0.484940  0.788260  0.850674  0.889062   
+          8     0.245978  0.281842  0.280225  0.335167  0.635438  0.688354  0.716057   
+          9     0.233581  0.252694  0.285000  0.388315  0.643369  0.676804  0.685940   
+          10    0.161002  0.232076  0.282356  0.365704  0.646381  0.674183  0.703547   
+          11    0.276984  0.312191  0.334137  0.369239  0.610426  0.645478  0.673143   
+          12    0.201499  0.273350  0.308183  0.409374  0.666986  0.667904  0.710017   
+          13    0.218844  0.297922  0.290151  0.396508  0.616778  0.681595  0.714548   
+          14    0.157001  0.248655  0.281423  0.436113  0.681041  0.695152  0.736229   
+          15    0.170072  0.204997  0.254663  0.386102  0.637517  0.647325  0.680885   
+          16    0.171980  0.237659  0.295854  0.378897  0.582091  0.583088  0.628954   
+          17    0.177781  0.201624  0.259843  0.345770  0.600241  0.628506  0.644008   
+          18    0.224312  0.246936  0.317615  0.366361  0.600248  0.627558  0.630209   
+          19    0.122869  0.202970  0.297034  0.374068  0.600063  0.649373  0.667165   
+          20    0.129066  0.172624  0.210247  0.298252  0.543781  0.596133  0.592156   
+          21    0.171497  0.181881  0.190521  0.335335  0.543412  0.584770  0.607834   
+          22    0.146033  0.177525  0.172556  0.367912  0.535843  0.596940  0.613246   
+          23    0.151521  0.197974  0.231918  0.361995  0.534504  0.530027  0.558638   
+          24    0.149052  0.200069  0.218370  0.349936  0.577072  0.595238  0.618420   
+          25    0.153037  0.221471  0.238663  0.389771  0.634734  0.650107  0.668444   
+          26    0.185239  0.262645  0.253097  0.420284  0.634533  0.643515  0.669229   
+          27    0.226972  0.213039  0.205215  0.371838  0.546266  0.579223  0.591918   
+          28    0.198142  0.265183  0.285003  0.402062  0.643354  0.637112  0.677674   
+          29    0.185403  0.229757  0.245749  0.321445  0.562786  0.589131  0.638649   
+          {\ldots}        {\ldots}       {\ldots}       {\ldots}       {\ldots}       {\ldots}       {\ldots}       {\ldots}   
+          5185 -0.074350 -0.089894 -0.106704 -0.140972  0.032073  0.021066  0.023203   
+          5186 -0.074350 -0.089894 -0.106704 -0.140972  0.032073  0.021066  0.023203   
+          5187 -0.074350 -0.089894 -0.106704 -0.140972  0.032073  0.021066  0.023203   
+          5188 -0.074350 -0.089894 -0.106704 -0.140972  0.032073  0.021066  0.023203   
+          5189 -0.074350 -0.089894 -0.106704 -0.140972  0.032073  0.021066  0.023203   
+          5190 -0.074350 -0.089894 -0.106704 -0.140972  0.032073  0.021066  0.023203   
+          5191 -0.074350 -0.089894 -0.106704 -0.140972  0.032073  0.021066  0.023203   
+          5192 -0.074350 -0.089894 -0.106704 -0.140972  0.032073  0.021066  0.023203   
+          5193 -0.074350 -0.089894 -0.106704 -0.140972  0.032073  0.021066  0.023203   
+          5194 -0.074350 -0.089894 -0.106704 -0.140972  0.032073  0.021066  0.023203   
+          5195 -0.074350 -0.089894 -0.106704 -0.140972  0.032073  0.021066  0.023203   
+          5196  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000   
+          5197  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000   
+          5198  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000   
+          5199  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000   
+          5200  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000   
+          5201  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000   
+          5202  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000   
+          5203  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000   
+          5204  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000   
+          5205  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000   
+          5206  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000   
+          5207  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000   
+          5208  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000   
+          5209  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000   
+          5210  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000   
+          5211  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000   
+          5212  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000   
+          5213  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000   
+          5214  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000   
+          
+                    7         8         9     {\ldots}   5205  5206  5207  5208  5209  5210  \textbackslash{}
+          0     0.235219  0.245978  0.233581  {\ldots}    0.0   0.0   0.0   0.0   0.0   0.0   
+          1     0.314813  0.281842  0.252694  {\ldots}    0.0   0.0   0.0   0.0   0.0   0.0   
+          2     0.399739  0.280225  0.285000  {\ldots}    0.0   0.0   0.0   0.0   0.0   0.0   
+          3     0.484940  0.335167  0.388315  {\ldots}    0.0   0.0   0.0   0.0   0.0   0.0   
+          4     0.788260  0.635438  0.643369  {\ldots}    0.0   0.0   0.0   0.0   0.0   0.0   
+          5     0.850674  0.688354  0.676804  {\ldots}    0.0   0.0   0.0   0.0   0.0   0.0   
+          6     0.889062  0.716057  0.685940  {\ldots}    0.0   0.0   0.0   0.0   0.0   0.0   
+          7     1.000000  0.789485  0.717285  {\ldots}    0.0   0.0   0.0   0.0   0.0   0.0   
+          8     0.789485  1.000000  0.842740  {\ldots}    0.0   0.0   0.0   0.0   0.0   0.0   
+          9     0.717285  0.842740  1.000000  {\ldots}    0.0   0.0   0.0   0.0   0.0   0.0   
+          10    0.747250  0.847340  0.918329  {\ldots}    0.0   0.0   0.0   0.0   0.0   0.0   
+          11    0.710788  0.827737  0.915509  {\ldots}    0.0   0.0   0.0   0.0   0.0   0.0   
+          12    0.742834  0.848544  0.916246  {\ldots}    0.0   0.0   0.0   0.0   0.0   0.0   
+          13    0.736904  0.847419  0.882909  {\ldots}    0.0   0.0   0.0   0.0   0.0   0.0   
+          14    0.733066  0.823568  0.907915  {\ldots}    0.0   0.0   0.0   0.0   0.0   0.0   
+          15    0.742380  0.826697  0.897684  {\ldots}    0.0   0.0   0.0   0.0   0.0   0.0   
+          16    0.665228  0.764517  0.829507  {\ldots}    0.0   0.0   0.0   0.0   0.0   0.0   
+          17    0.674648  0.784511  0.826378  {\ldots}    0.0   0.0   0.0   0.0   0.0   0.0   
+          18    0.667469  0.770631  0.838296  {\ldots}    0.0   0.0   0.0   0.0   0.0   0.0   
+          19    0.696685  0.757196  0.824098  {\ldots}    0.0   0.0   0.0   0.0   0.0   0.0   
+          20    0.639006  0.716703  0.788020  {\ldots}    0.0   0.0   0.0   0.0   0.0   0.0   
+          21    0.632875  0.736658  0.828758  {\ldots}    0.0   0.0   0.0   0.0   0.0   0.0   
+          22    0.657551  0.736770  0.826949  {\ldots}    0.0   0.0   0.0   0.0   0.0   0.0   
+          23    0.604091  0.722143  0.810515  {\ldots}    0.0   0.0   0.0   0.0   0.0   0.0   
+          24    0.652179  0.772988  0.811663  {\ldots}    0.0   0.0   0.0   0.0   0.0   0.0   
+          25    0.687799  0.776678  0.834503  {\ldots}    0.0   0.0   0.0   0.0   0.0   0.0   
+          26    0.673517  0.791789  0.846492  {\ldots}    0.0   0.0   0.0   0.0   0.0   0.0   
+          27    0.608890  0.740555  0.816373  {\ldots}    0.0   0.0   0.0   0.0   0.0   0.0   
+          28    0.686189  0.764869  0.816603  {\ldots}    0.0   0.0   0.0   0.0   0.0   0.0   
+          29    0.667396  0.781508  0.798225  {\ldots}    0.0   0.0   0.0   0.0   0.0   0.0   
+          {\ldots}        {\ldots}       {\ldots}       {\ldots}  {\ldots}    {\ldots}   {\ldots}   {\ldots}   {\ldots}   {\ldots}   {\ldots}   
+          5185  0.018606  0.121877 -0.011407  {\ldots}    0.0   0.0   0.0   0.0   0.0   0.0   
+          5186  0.018606  0.121877 -0.011407  {\ldots}    0.0   0.0   0.0   0.0   0.0   0.0   
+          5187  0.018606  0.121877 -0.011407  {\ldots}    0.0   0.0   0.0   0.0   0.0   0.0   
+          5188  0.018606  0.121877 -0.011407  {\ldots}    0.0   0.0   0.0   0.0   0.0   0.0   
+          5189  0.018606  0.121877 -0.011407  {\ldots}    0.0   0.0   0.0   0.0   0.0   0.0   
+          5190  0.018606  0.121877 -0.011407  {\ldots}    0.0   0.0   0.0   0.0   0.0   0.0   
+          5191  0.018606  0.121877 -0.011407  {\ldots}    0.0   0.0   0.0   0.0   0.0   0.0   
+          5192  0.018606  0.121877 -0.011407  {\ldots}    0.0   0.0   0.0   0.0   0.0   0.0   
+          5193  0.018606  0.121877 -0.011407  {\ldots}    0.0   0.0   0.0   0.0   0.0   0.0   
+          5194  0.018606  0.121877 -0.011407  {\ldots}    0.0   0.0   0.0   0.0   0.0   0.0   
+          5195  0.018606  0.121877 -0.011407  {\ldots}    0.0   0.0   0.0   0.0   0.0   0.0   
+          5196  0.000000  0.000000  0.000000  {\ldots}    0.0   0.0   0.0   0.0   0.0   0.0   
+          5197  0.000000  0.000000  0.000000  {\ldots}    0.0   0.0   0.0   0.0   0.0   0.0   
+          5198  0.000000  0.000000  0.000000  {\ldots}    0.0   0.0   0.0   0.0   0.0   0.0   
+          5199  0.000000  0.000000  0.000000  {\ldots}    0.0   0.0   0.0   0.0   0.0   0.0   
+          5200  0.000000  0.000000  0.000000  {\ldots}    0.0   0.0   0.0   0.0   0.0   0.0   
+          5201  0.000000  0.000000  0.000000  {\ldots}    0.0   0.0   0.0   0.0   0.0   0.0   
+          5202  0.000000  0.000000  0.000000  {\ldots}    0.0   0.0   0.0   0.0   0.0   0.0   
+          5203  0.000000  0.000000  0.000000  {\ldots}    0.0   0.0   0.0   0.0   0.0   0.0   
+          5204  0.000000  0.000000  0.000000  {\ldots}    0.0   0.0   0.0   0.0   0.0   0.0   
+          5205  0.000000  0.000000  0.000000  {\ldots}    0.0   0.0   0.0   0.0   0.0   0.0   
+          5206  0.000000  0.000000  0.000000  {\ldots}    0.0   0.0   0.0   0.0   0.0   0.0   
+          5207  0.000000  0.000000  0.000000  {\ldots}    0.0   0.0   0.0   0.0   0.0   0.0   
+          5208  0.000000  0.000000  0.000000  {\ldots}    0.0   0.0   0.0   0.0   0.0   0.0   
+          5209  0.000000  0.000000  0.000000  {\ldots}    0.0   0.0   0.0   0.0   0.0   0.0   
+          5210  0.000000  0.000000  0.000000  {\ldots}    0.0   0.0   0.0   0.0   0.0   0.0   
+          5211  0.000000  0.000000  0.000000  {\ldots}    0.0   0.0   0.0   0.0   0.0   0.0   
+          5212  0.000000  0.000000  0.000000  {\ldots}    0.0   0.0   0.0   0.0   0.0   0.0   
+          5213  0.000000  0.000000  0.000000  {\ldots}    0.0   0.0   0.0   0.0   0.0   0.0   
+          5214  0.000000  0.000000  0.000000  {\ldots}    0.0   0.0   0.0   0.0   0.0   0.0   
+          
+                5211  5212  5213  5214  
+          0      0.0   0.0   0.0   0.0  
+          1      0.0   0.0   0.0   0.0  
+          2      0.0   0.0   0.0   0.0  
+          3      0.0   0.0   0.0   0.0  
+          4      0.0   0.0   0.0   0.0  
+          5      0.0   0.0   0.0   0.0  
+          6      0.0   0.0   0.0   0.0  
+          7      0.0   0.0   0.0   0.0  
+          8      0.0   0.0   0.0   0.0  
+          9      0.0   0.0   0.0   0.0  
+          10     0.0   0.0   0.0   0.0  
+          11     0.0   0.0   0.0   0.0  
+          12     0.0   0.0   0.0   0.0  
+          13     0.0   0.0   0.0   0.0  
+          14     0.0   0.0   0.0   0.0  
+          15     0.0   0.0   0.0   0.0  
+          16     0.0   0.0   0.0   0.0  
+          17     0.0   0.0   0.0   0.0  
+          18     0.0   0.0   0.0   0.0  
+          19     0.0   0.0   0.0   0.0  
+          20     0.0   0.0   0.0   0.0  
+          21     0.0   0.0   0.0   0.0  
+          22     0.0   0.0   0.0   0.0  
+          23     0.0   0.0   0.0   0.0  
+          24     0.0   0.0   0.0   0.0  
+          25     0.0   0.0   0.0   0.0  
+          26     0.0   0.0   0.0   0.0  
+          27     0.0   0.0   0.0   0.0  
+          28     0.0   0.0   0.0   0.0  
+          29     0.0   0.0   0.0   0.0  
+          {\ldots}    {\ldots}   {\ldots}   {\ldots}   {\ldots}  
+          5185   0.0   0.0   0.0   0.0  
+          5186   0.0   0.0   0.0   0.0  
+          5187   0.0   0.0   0.0   0.0  
+          5188   0.0   0.0   0.0   0.0  
+          5189   0.0   0.0   0.0   0.0  
+          5190   0.0   0.0   0.0   0.0  
+          5191   0.0   0.0   0.0   0.0  
+          5192   0.0   0.0   0.0   0.0  
+          5193   0.0   0.0   0.0   0.0  
+          5194   0.0   0.0   0.0   0.0  
+          5195   0.0   0.0   0.0   0.0  
+          5196   0.0   0.0   0.0   0.0  
+          5197   0.0   0.0   0.0   0.0  
+          5198   0.0   0.0   0.0   0.0  
+          5199   0.0   0.0   0.0   0.0  
+          5200   0.0   0.0   0.0   0.0  
+          5201   0.0   0.0   0.0   0.0  
+          5202   0.0   0.0   0.0   0.0  
+          5203   0.0   0.0   0.0   0.0  
+          5204   0.0   0.0   0.0   0.0  
+          5205   0.0   0.0   0.0   0.0  
+          5206   0.0   0.0   0.0   0.0  
+          5207   0.0   0.0   0.0   0.0  
+          5208   0.0   0.0   0.0   0.0  
+          5209   0.0   0.0   0.0   0.0  
+          5210   0.0   0.0   0.0   0.0  
+          5211   0.0   0.0   0.0   0.0  
+          5212   0.0   0.0   0.0   0.0  
+          5213   0.0   0.0   0.0   0.0  
+          5214   0.0   0.0   0.0   0.0  
+          
+          [5215 rows x 5215 columns]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}127}]:} \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+          \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+          
+          \PY{c+c1}{\PYZsh{} plot correlation matrix}
+          
+          \PY{n}{names} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{correlations}\PY{o}{.}\PY{n}{columns}\PY{p}{)}
+          \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{[}\PY{l+m+mi}{30}\PY{p}{,}\PY{l+m+mi}{30}\PY{p}{]}\PY{p}{)}
+          \PY{n}{ax} \PY{o}{=} \PY{n}{fig}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{l+m+mi}{111}\PY{p}{)}
+          \PY{n}{cax} \PY{o}{=} \PY{n}{ax}\PY{o}{.}\PY{n}{matshow}\PY{p}{(}\PY{n}{correlations}\PY{p}{,} \PY{n}{vmin}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{vmax}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+          \PY{n}{fig}\PY{o}{.}\PY{n}{colorbar}\PY{p}{(}\PY{n}{cax}\PY{p}{)}
+          \PY{n}{ticks} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{5215}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+          \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xticks}\PY{p}{(}\PY{n}{ticks}\PY{p}{)}
+          \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}yticks}\PY{p}{(}\PY{n}{ticks}\PY{p}{)}
+          \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xticklabels}\PY{p}{(}\PY{n}{names}\PY{p}{)}
+          \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}yticklabels}\PY{p}{(}\PY{n}{names}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_44_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \section{Unsupervised learning:
+clustering}\label{unsupervised-learning-clustering}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}172}]:} \PY{n}{dfhashes}\PY{o}{=}\PY{n}{dfhashes}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}
+          \PY{n}{dataframe\PYZus{}std} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{StandardScaler}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{fit\PYZus{}transform}\PY{p}{(}\PY{n}{dfhashes}\PY{p}{)}\PY{p}{)}
+          \PY{n}{cov\PYZus{}std} \PY{o}{=} \PY{n}{dataframe\PYZus{}std}\PY{o}{.}\PY{n}{corr}\PY{p}{(}\PY{p}{)}
+          \PY{n}{cov\PYZus{}std}\PY{o}{=}\PY{n}{cov\PYZus{}std}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}174}]:} \PY{c+c1}{\PYZsh{}We need to take components with the highest value to keep the information on the projection space. }
+          \PY{c+c1}{\PYZsh{}Here we\PYZsq{}re sure that we need the first and the second. For the rest we run the computation bellow.}
+          
+          \PY{n}{eig\PYZus{}vals}\PY{p}{,} \PY{n}{eig\PYZus{}vect} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linalg}\PY{o}{.}\PY{n}{eig}\PY{p}{(}\PY{n}{cov\PYZus{}std}\PY{p}{)}
+          \PY{n}{eig\PYZus{}pairs} \PY{o}{=} \PY{p}{[}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{n}{eig\PYZus{}vals}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{n}{eig\PYZus{}vect}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{n}{i}\PY{p}{]}\PY{p}{)} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{eig\PYZus{}vals}\PY{p}{)}\PY{p}{)}\PY{p}{]}
+          
+          \PY{n}{sum\PYZus{}ev} \PY{o}{=} \PY{n+nb}{sum}\PY{p}{(}\PY{n}{eig\PYZus{}vals}\PY{p}{)}
+          \PY{n}{pve} \PY{o}{=} \PY{p}{[}\PY{p}{(}\PY{n}{i} \PY{o}{/} \PY{n}{sum\PYZus{}ev}\PY{p}{)}\PY{o}{*}\PY{l+m+mi}{100} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{sorted}\PY{p}{(}\PY{n}{eig\PYZus{}vals}\PY{p}{,} \PY{n}{reverse}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}\PY{p}{]}
+          \PY{n}{cum\PYZus{}var\PYZus{}pve} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{cumsum}\PY{p}{(}\PY{n}{pve}\PY{p}{)}
+          
+          \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{[}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{]}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{p}{[}\PY{n}{i} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{dataset\PYZus{}std}\PY{o}{.}\PY{n}{columns}\PY{p}{)}\PY{p}{)}\PY{p}{]}\PY{p}{,} \PY{n}{pve}\PY{p}{,} \PY{n}{s}\PY{o}{=}\PY{l+m+mi}{80}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{p}{[}\PY{n}{i} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{dataset\PYZus{}std}\PY{o}{.}\PY{n}{columns}\PY{p}{)}\PY{p}{)}\PY{p}{]}\PY{p}{,} \PY{n}{cum\PYZus{}var\PYZus{}pve}\PY{p}{,} \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{+}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Variance}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Cumulative variance}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+C:\textbackslash{}Program Files (x86)\textbackslash{}Microsoft Visual Studio\textbackslash{}Shared\textbackslash{}Anaconda3\_64\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}numpy\textbackslash{}core\textbackslash{}numeric.py:544: ComplexWarning: Casting complex values to real discards the imaginary part
+  return array(a, dtype, copy=False, order=order, subok=True)
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_47_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}176}]:} \PY{n}{pca} \PY{o}{=} \PY{n}{PCA}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{dfhashes}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{cumsum}\PY{p}{(}\PY{n}{pca}\PY{o}{.}\PY{n}{explained\PYZus{}variance\PYZus{}ratio\PYZus{}}\PY{p}{)}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{number of components}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cumulative variance}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_48_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{n}{dataframe\PYZus{}pca} \PY{o}{=} \PY{n}{PCA}\PY{p}{(}\PY{n}{n\PYZus{}components}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}\PY{o}{.}\PY{n}{fit\PYZus{}transform}\PY{p}{(}\PY{n}{dataframe\PYZus{}std}\PY{p}{)}
+         
+         \PY{n}{dataframe\PYZus{}pca}
+         
+         \PY{c+c1}{\PYZsh{}the coordinates of the points projected into the space}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}18}]:} array([[ -4.89505350e+01,   7.31403248e+01],
+                [ -2.40300887e+01,   7.92593429e+00],
+                [  3.19386155e+01,  -2.10378859e+01],
+                [ -1.23756063e+01,  -8.52920377e+00],
+                [ -1.50742218e+01,  -3.67588035e+00],
+                [  4.23055466e+01,  -1.18122994e+01],
+                [  7.05189270e+00,  -1.38940425e+01],
+                [  1.69114038e+01,  -2.57993964e+01],
+                [ -1.03502505e+00,  -1.07756891e+01],
+                [ -1.07328595e+01,  -1.05041501e+01],
+                [ -2.28636838e+00,  -2.63212729e+01],
+                [  8.12439583e+01,   7.15134968e+00],
+                [ -2.52756214e+00,  -1.26739222e+01],
+                [ -4.94745585e+00,  -1.31003172e+01],
+                [ -2.58084446e+01,   1.43935890e+01],
+                [  3.49655231e+00,  -1.89707273e+01],
+                [ -3.31266470e+01,   2.96480650e+01],
+                [ -1.86180495e+01,  -4.13652533e-02],
+                [ -3.33280048e+01,   3.07814623e+01],
+                [ -2.77487777e+01,   1.80630637e+01],
+                [ -5.98955352e+01,   1.06422118e+02],
+                [ -2.49082069e+01,   1.05147072e+01],
+                [  3.35273594e+01,  -2.11395403e+01],
+                [ -1.26642358e+01,  -6.48268697e+00],
+                [  3.04981981e+00,  -2.17661008e+01],
+                [  2.30629399e+02,   1.39519293e+02],
+                [ -3.50152028e+00,  -9.71560592e+00],
+                [  3.82480595e+00,  -1.56996571e+01],
+                [ -1.01869818e+01,  -1.06915287e+01],
+                [  5.23053382e+00,  -1.31675144e+01],
+                [ -1.29083156e+00,  -2.10520957e+01],
+                [  5.88547328e+01,  -1.08978455e+01],
+                [ -1.61804686e+01,  -2.50387155e+00],
+                [ -8.57871373e+00,  -1.85507171e+01],
+                [ -5.19060415e+00,  -1.64769445e+01],
+                [ -1.25033812e+00,  -1.33815487e+01],
+                [ -1.10678263e+01,  -1.23046728e+01],
+                [ -7.46038212e+00,  -6.33417354e+00],
+                [ -1.78845081e+01,  -1.21527026e+00],
+                [  1.20610016e+01,  -1.15520981e+01],
+                [ -9.88159421e+00,  -1.32076082e+01],
+                [ -1.87084163e+01,  -1.79411504e+00],
+                [  7.56650716e+01,  -7.39741251e-01],
+                [  1.28310719e+01,  -1.86565142e+01],
+                [  3.73297450e+01,  -2.80218075e+01],
+                [ -2.19077357e-01,  -2.01251761e+01],
+                [ -1.10086343e+01,  -7.13847877e+00],
+                [  3.92934153e+01,  -1.38619861e+01],
+                [ -8.90751818e+00,  -1.30324818e+01],
+                [ -1.02840946e+01,  -6.20405082e+00],
+                [ -9.48931552e+00,  -8.84129602e+00],
+                [ -1.15399795e+01,  -8.37408688e+00],
+                [ -1.77686361e+00,  -1.72763059e+01],
+                [  8.50958333e+00,  -2.91703050e+01],
+                [  8.37004618e+01,  -1.73952760e+00],
+                [  2.30944382e+01,  -1.89496708e+01],
+                [ -1.78716210e+01,   3.22853365e+00],
+                [ -1.79685677e+01,  -3.45841119e+00],
+                [ -1.42850407e+01,  -7.78284933e+00],
+                [ -1.07764100e+01,  -1.55830834e+01],
+                [ -3.89793469e+01,   4.49474668e+01],
+                [ -1.40937363e+00,  -1.79813433e+01],
+                [ -2.27889769e+01,   1.01908514e+01],
+                [  1.28554894e+01,  -1.47324997e+01],
+                [ -1.67646944e+01,  -3.18651793e-01],
+                [ -1.01338872e+01,  -1.32943949e+01],
+                [ -7.70647178e+01,   1.62907188e+02],
+                [ -4.78824418e+00,  -1.46714171e+01],
+                [ -3.33390077e+01,   2.95773498e+01],
+                [ -1.71791652e+01,  -2.23367373e+00],
+                [ -1.75905526e+01,  -1.15379516e+00]])
+\end{Verbatim}
+            
+    This show how our songs representation with respect to their special
+hashes, since we have big amout close to each outhers it mean that alot
+of song have same maximal frequensy
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{dataframe\PYZus{}pca}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{dataframe\PYZus{}pca}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlim}\PY{p}{(}\PY{n+nb}{min}\PY{p}{(}\PY{n}{dataframe\PYZus{}pca}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{,}\PY{n+nb}{max}\PY{p}{(}\PY{n}{dataframe\PYZus{}pca}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylim}\PY{p}{(}\PY{n+nb}{min}\PY{p}{(}\PY{n}{dataframe\PYZus{}pca}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{,}\PY{n+nb}{max}\PY{p}{(}\PY{n}{dataframe\PYZus{}pca}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_51_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}182}]:} \PY{n}{k} \PY{o}{=} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{20}\PY{p}{)}
+          \PY{n}{silhouette} \PY{o}{=} \PY{p}{[}\PY{l+m+mf}{0.0}\PY{p}{]}\PY{o}{*}\PY{l+m+mi}{20}
+          \PY{k}{for} \PY{n}{n\PYZus{}clusters} \PY{o+ow}{in} \PY{n}{k}\PY{p}{:}
+              \PY{n}{clusterer} \PY{o}{=} \PY{n}{KMeans}\PY{p}{(}\PY{n}{n\PYZus{}clusters}\PY{o}{=}\PY{n}{n\PYZus{}clusters}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{)}
+              \PY{n}{cluster\PYZus{}labels} \PY{o}{=} \PY{n}{clusterer}\PY{o}{.}\PY{n}{fit\PYZus{}predict}\PY{p}{(}\PY{n}{dataframe\PYZus{}pca}\PY{p}{)}
+              \PY{n}{silhouette\PYZus{}avg} \PY{o}{=} \PY{n}{silhouette\PYZus{}score}\PY{p}{(}\PY{n}{dataframe\PYZus{}pca}\PY{p}{,} \PY{n}{cluster\PYZus{}labels}\PY{p}{)}
+              \PY{n}{silhouette}\PY{p}{[}\PY{n}{n\PYZus{}clusters}\PY{p}{]} \PY{o}{=} \PY{n}{silhouette\PYZus{}avg}
+              
+          \PY{c+c1}{\PYZsh{} We compute the score for each cluster and take the closest to 1}
+          \PY{n}{best\PYZus{}nb\PYZus{}clust} \PY{o}{=} \PY{n}{silhouette}\PY{o}{.}\PY{n}{index}\PY{p}{(}\PY{n+nb}{max}\PY{p}{(}\PY{n}{silhouette}\PY{p}{)}\PY{p}{)} 
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{The best number of cluster is : }\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{best\PYZus{}nb\PYZus{}clust}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+The best number of cluster is : 2
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}179}]:} \PY{n}{kmeans\PYZus{}label} \PY{o}{=} \PY{n}{KMeans}\PY{p}{(}\PY{n}{n\PYZus{}clusters}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{)}\PY{o}{.}\PY{n}{fit\PYZus{}predict}\PY{p}{(}\PY{n}{dataframe\PYZus{}pca}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{dataframe\PYZus{}pca}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{dataframe\PYZus{}pca}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{c}\PY{o}{=}\PY{n}{kmeans\PYZus{}label}\PY{p}{,}\PY{n}{s}\PY{o}{=}\PY{l+m+mi}{50}\PY{p}{,}\PY{n}{cmap}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{viridis}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_53_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}51}]:} \PY{n}{X} \PY{o}{=} \PY{n}{dataframe\PYZus{}pca}
+         \PY{n}{range\PYZus{}n\PYZus{}clusters} \PY{o}{=} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{)}
+         
+         \PY{k}{for} \PY{n}{n\PYZus{}clusters} \PY{o+ow}{in} \PY{n}{range\PYZus{}n\PYZus{}clusters}\PY{p}{:}
+             \PY{n}{fig}\PY{p}{,} \PY{p}{(}\PY{n}{ax1}\PY{p}{,} \PY{n}{ax2}\PY{p}{)} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}              
+             \PY{n}{fig}\PY{o}{.}\PY{n}{set\PYZus{}size\PYZus{}inches}\PY{p}{(}\PY{l+m+mi}{18}\PY{p}{,} \PY{l+m+mi}{7}\PY{p}{)}   
+             
+             \PY{c+c1}{\PYZsh{} Limit of the figure for the silhouette \PYZhy{}1, 1 }
+             \PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}xlim}\PY{p}{(}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mf}{0.2}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}                             
+             \PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}ylim}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{X}\PY{p}{)} \PY{o}{+} \PY{p}{(}\PY{n}{n\PYZus{}clusters} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{)} \PY{o}{*} \PY{l+m+mi}{10}\PY{p}{]}\PY{p}{)}
+         
+             \PY{c+c1}{\PYZsh{} Initialize the clusterer with n\PYZus{}clusters value and a random generator with speed = 10}
+             \PY{n}{clusterer} \PY{o}{=} \PY{n}{KMeans}\PY{p}{(}\PY{n}{n\PYZus{}clusters}\PY{o}{=}\PY{n}{n\PYZus{}clusters}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{)}
+             \PY{n}{cluster\PYZus{}labels} \PY{o}{=} \PY{n}{clusterer}\PY{o}{.}\PY{n}{fit\PYZus{}predict}\PY{p}{(}\PY{n}{X}\PY{p}{)}
+             
+             \PY{c+c1}{\PYZsh{} Silhouette score between \PYZhy{}1 (worse) and 1 (better) }
+             \PY{n}{silhouette\PYZus{}avg} \PY{o}{=} \PY{n}{silhouette\PYZus{}score}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{cluster\PYZus{}labels}\PY{p}{)}  
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{For n\PYZus{}clusters =}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{n\PYZus{}clusters}\PY{p}{,}
+                   \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{The average silhouette\PYZus{}score is :}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{silhouette\PYZus{}avg}\PY{p}{)}
+         
+             \PY{c+c1}{\PYZsh{} Compute the silhouette scores for each sample}
+             \PY{n}{sample\PYZus{}silhouette\PYZus{}values} \PY{o}{=} \PY{n}{silhouette\PYZus{}samples}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{cluster\PYZus{}labels}\PY{p}{)}
+         
+             \PY{n}{y\PYZus{}lower} \PY{o}{=} \PY{l+m+mi}{10}
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{n\PYZus{}clusters}\PY{p}{)}\PY{p}{:}
+                 \PY{c+c1}{\PYZsh{} Aggregate the silhouette scores for samples belonging to}
+                 \PY{c+c1}{\PYZsh{} cluster i, and sort them}
+                 \PY{n}{ith\PYZus{}cluster\PYZus{}silhouette\PYZus{}values} \PY{o}{=} \PYZbs{}
+                     \PY{n}{sample\PYZus{}silhouette\PYZus{}values}\PY{p}{[}\PY{n}{cluster\PYZus{}labels} \PY{o}{==} \PY{n}{i}\PY{p}{]}
+         
+                 \PY{n}{ith\PYZus{}cluster\PYZus{}silhouette\PYZus{}values}\PY{o}{.}\PY{n}{sort}\PY{p}{(}\PY{p}{)}
+         
+                 \PY{n}{size\PYZus{}cluster\PYZus{}i} \PY{o}{=} \PY{n}{ith\PYZus{}cluster\PYZus{}silhouette\PYZus{}values}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+                 \PY{n}{y\PYZus{}upper} \PY{o}{=} \PY{n}{y\PYZus{}lower} \PY{o}{+} \PY{n}{size\PYZus{}cluster\PYZus{}i}
+         
+                 \PY{n}{color} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{cm}\PY{o}{.}\PY{n}{inferno}\PY{p}{(}\PY{n+nb}{float}\PY{p}{(}\PY{n}{i}\PY{p}{)} \PY{o}{/} \PY{n}{n\PYZus{}clusters}\PY{p}{)}
+                 \PY{n}{ax1}\PY{o}{.}\PY{n}{fill\PYZus{}betweenx}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{n}{y\PYZus{}lower}\PY{p}{,} \PY{n}{y\PYZus{}upper}\PY{p}{)}\PY{p}{,}
+                                   \PY{l+m+mi}{0}\PY{p}{,} \PY{n}{ith\PYZus{}cluster\PYZus{}silhouette\PYZus{}values}\PY{p}{,}
+                                   \PY{n}{facecolor}\PY{o}{=}\PY{n}{color}\PY{p}{,} \PY{n}{edgecolor}\PY{o}{=}\PY{n}{color}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.7}\PY{p}{)}
+         
+                 \PY{c+c1}{\PYZsh{} Label the silhouette plots with their cluster numbers at the middle}
+                 \PY{n}{ax1}\PY{o}{.}\PY{n}{text}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mf}{0.05}\PY{p}{,} \PY{n}{y\PYZus{}lower} \PY{o}{+} \PY{l+m+mf}{0.5} \PY{o}{*} \PY{n}{size\PYZus{}cluster\PYZus{}i}\PY{p}{,} \PY{n+nb}{str}\PY{p}{(}\PY{n}{i}\PY{p}{)}\PY{p}{)}
+         
+                 \PY{c+c1}{\PYZsh{} Compute the new y\PYZus{}lower for next plot}
+                 \PY{n}{y\PYZus{}lower} \PY{o}{=} \PY{n}{y\PYZus{}upper} \PY{o}{+} \PY{l+m+mi}{10}  \PY{c+c1}{\PYZsh{} 10 for the 0 samples}
+         
+             \PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{The silhouette plot for the various clusters.}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+             \PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{The silhouette coefficient values}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+             \PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Cluster label}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+             \PY{c+c1}{\PYZsh{} The vertical line for average silhouette score of all the values}
+             \PY{n}{ax1}\PY{o}{.}\PY{n}{axvline}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{n}{silhouette\PYZus{}avg}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{red}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{linestyle}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZhy{}\PYZhy{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+             \PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}yticks}\PY{p}{(}\PY{p}{[}\PY{p}{]}\PY{p}{)}  \PY{c+c1}{\PYZsh{} Clear the yaxis labels / ticks}
+             \PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}xticks}\PY{p}{(}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mf}{0.2}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mf}{0.1}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mf}{0.2}\PY{p}{,} \PY{l+m+mf}{0.4}\PY{p}{,} \PY{l+m+mf}{0.6}\PY{p}{,} \PY{l+m+mf}{0.8}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+         
+             \PY{c+c1}{\PYZsh{} 2nd Plot showing the actual clusters formed}
+             \PY{n}{colors} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{cm}\PY{o}{.}\PY{n}{inferno}\PY{p}{(}\PY{n}{cluster\PYZus{}labels}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n+nb}{float}\PY{p}{)} \PY{o}{/} \PY{n}{n\PYZus{}clusters}\PY{p}{)}
+             \PY{n}{ax2}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{X}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{X}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{s}\PY{o}{=}\PY{l+m+mi}{30}\PY{p}{,} \PY{n}{lw}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.7}\PY{p}{,}
+                         \PY{n}{c}\PY{o}{=} \PY{n}{cluster\PYZus{}labels} \PY{p}{,} \PY{n}{edgecolor}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{k}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+             \PY{c+c1}{\PYZsh{} Labeling the clusters}
+             \PY{n}{centers} \PY{o}{=} \PY{n}{clusterer}\PY{o}{.}\PY{n}{cluster\PYZus{}centers\PYZus{}}
+             \PY{c+c1}{\PYZsh{} Draw white circles at cluster centers}
+             \PY{n}{ax2}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{centers}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{centers}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                         \PY{n}{c}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{white}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{s}\PY{o}{=}\PY{l+m+mi}{200}\PY{p}{,} \PY{n}{edgecolor}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{k}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+             \PY{k}{for} \PY{n}{i}\PY{p}{,} \PY{n}{c} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{centers}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{ax2}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{c}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{c}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}}\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s1}{\PYZdl{}}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{n}{i}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,}
+                             \PY{n}{s}\PY{o}{=}\PY{l+m+mi}{50}\PY{p}{,} \PY{n}{edgecolor}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{k}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+             \PY{n}{ax2}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{The visualization of the clustered data.}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+             \PY{n}{ax2}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Feature space for the 1st feature}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+             \PY{n}{ax2}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Feature space for the 2nd feature}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+             \PY{n}{plt}\PY{o}{.}\PY{n}{suptitle}\PY{p}{(}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZsh{}clusters = }\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s2}{\PYZdq{}} \PY{o}{\PYZpc{}} \PY{n}{n\PYZus{}clusters}\PY{p}{)}\PY{p}{,}
+                          \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{14}\PY{p}{,} \PY{n}{fontweight}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bold}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+             \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+For n\_clusters = 2 The average silhouette\_score is : 0.834987361982
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_54_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+For n\_clusters = 3 The average silhouette\_score is : 0.702288559342
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_54_3.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+For n\_clusters = 4 The average silhouette\_score is : 0.604247818379
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_54_5.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+For n\_clusters = 5 The average silhouette\_score is : 0.57124965693
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_54_7.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+For n\_clusters = 6 The average silhouette\_score is : 0.527046673433
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_54_9.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+For n\_clusters = 7 The average silhouette\_score is : 0.521728418291
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_54_11.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \section{Supervised learning:KNN}\label{supervised-learningknn}
+
+    Now let's talk about supervised learning, first we will show K-nearest
+neighbors 
+
+    We split our info for two sets, training and testing, here we will show
+features of our KNN
+
+    \subsubsection{- genre of the song
+recognition}\label{genre-of-the-song-recognition}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}94}]:} \PY{n}{trainingSet}\PY{o}{=}\PY{p}{[}\PY{p}{]}
+         \PY{n}{testSet}\PY{o}{=}\PY{p}{[}\PY{p}{]}
+         \PY{n}{split} \PY{o}{=}\PY{l+m+mf}{0.9}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}95}]:} \PY{n}{numbers}\PY{o}{=}\PY{p}{[}\PY{p}{]}
+         \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{df}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+             \PY{k}{if} \PY{n}{random}\PY{o}{.}\PY{n}{random}\PY{p}{(}\PY{p}{)} \PY{o}{\PYZlt{}} \PY{n}{split}\PY{p}{:}
+                 \PY{n}{trainingSet}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{x}\PY{p}{,}\PY{p}{:}\PY{p}{]}\PY{p}{)}
+             \PY{k}{else}\PY{p}{:}
+                 \PY{n}{testSet}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{x}\PY{p}{,}\PY{p}{:}\PY{p}{]}\PY{p}{)}
+                 \PY{n}{numbers}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}79}]:} \PY{k}{def} \PY{n+nf}{euclideanDistance}\PY{p}{(}\PY{n}{instance1}\PY{p}{,} \PY{n}{instance2}\PY{p}{,} \PY{n}{length}\PY{p}{)}\PY{p}{:}
+         	\PY{n}{distance} \PY{o}{=} \PY{l+m+mi}{0}
+         	\PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{length}\PY{p}{)}\PY{p}{:}
+         		\PY{n}{distance} \PY{o}{+}\PY{o}{=} \PY{n+nb}{pow}\PY{p}{(}\PY{p}{(}\PY{n}{instance1}\PY{p}{[}\PY{n}{x}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{instance2}\PY{p}{[}\PY{n}{x}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}
+         	\PY{k}{return} \PY{n}{math}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{distance}\PY{p}{)}
+          
+         \PY{k}{def} \PY{n+nf}{getNeighbors}\PY{p}{(}\PY{n}{trainingSet}\PY{p}{,} \PY{n}{testInstance}\PY{p}{,} \PY{n}{k}\PY{p}{)}\PY{p}{:}
+         	\PY{n}{distances} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         	\PY{n}{length} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{testInstance}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}
+         	\PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{trainingSet}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+         		\PY{n}{dist} \PY{o}{=} \PY{n}{euclideanDistance}\PY{p}{(}\PY{n}{testInstance}\PY{p}{,} \PY{n}{trainingSet}\PY{p}{[}\PY{n}{x}\PY{p}{]}\PY{p}{,} \PY{n}{length}\PY{p}{)}
+         		\PY{n}{distances}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{p}{(}\PY{n}{trainingSet}\PY{p}{[}\PY{n}{x}\PY{p}{]}\PY{p}{,} \PY{n}{dist}\PY{p}{)}\PY{p}{)}
+         	\PY{n}{distances}\PY{o}{.}\PY{n}{sort}\PY{p}{(}\PY{n}{key}\PY{o}{=}\PY{n}{operator}\PY{o}{.}\PY{n}{itemgetter}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+         	\PY{n}{neighbors} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         	\PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{k}\PY{p}{)}\PY{p}{:}
+         		\PY{n}{neighbors}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{distances}\PY{p}{[}\PY{n}{x}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+         	\PY{k}{return} \PY{n}{neighbors}
+          
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}97}]:} \PY{k}{def} \PY{n+nf}{getResponse}\PY{p}{(}\PY{n}{neighbors}\PY{p}{)}\PY{p}{:}
+         	\PY{n}{classVotes} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+         	\PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{neighbors}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+         		\PY{n}{response} \PY{o}{=} \PY{n}{neighbors}\PY{p}{[}\PY{n}{x}\PY{p}{]}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+         		\PY{k}{if} \PY{n}{response} \PY{o+ow}{in} \PY{n}{classVotes}\PY{p}{:}
+         			\PY{n}{classVotes}\PY{p}{[}\PY{n}{response}\PY{p}{]} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+         		\PY{k}{else}\PY{p}{:}
+         			\PY{n}{classVotes}\PY{p}{[}\PY{n}{response}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{1}
+         	\PY{n}{sortedVotes} \PY{o}{=} \PY{n+nb}{sorted}\PY{p}{(}\PY{n}{classVotes}\PY{o}{.}\PY{n}{items}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{key}\PY{o}{=}\PY{n}{operator}\PY{o}{.}\PY{n}{itemgetter}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{n}{reverse}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         	\PY{k}{return} \PY{n}{sortedVotes}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}98}]:} \PY{n+nb}{print} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Train set: }\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n+nb}{repr}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{trainingSet}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Test set: }\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n+nb}{repr}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{testSet}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Train set: 66
+Test set: 3
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}100}]:} \PY{n}{predictions}\PY{o}{=}\PY{p}{[}\PY{p}{]}
+          \PY{n}{k} \PY{o}{=} \PY{l+m+mi}{5}
+          \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{testSet}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+          	\PY{n}{neighbors} \PY{o}{=} \PY{n}{getNeighbors}\PY{p}{(}\PY{n}{trainingSet}\PY{p}{,} \PY{n}{testSet}\PY{p}{[}\PY{n}{x}\PY{p}{]}\PY{p}{,} \PY{n}{k}\PY{p}{)}
+          	\PY{n}{result} \PY{o}{=} \PY{n}{getResponse}\PY{p}{(}\PY{n}{neighbors}\PY{p}{)}
+          	\PY{n}{predictions}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{result}\PY{p}{)}
+          	\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZgt{} predicted=}\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n+nb}{repr}\PY{p}{(}\PY{n}{result}\PY{p}{)} \PY{o}{+} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{, actual=}\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n+nb}{repr}\PY{p}{(}\PY{n}{testSet}\PY{p}{[}\PY{n}{x}\PY{p}{]}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{o}{+}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ song: }\PY{l+s+s1}{\PYZsq{}}\PY{o}{+}\PY{n}{dfname}\PY{o}{.}\PY{n}{iat}\PY{p}{[}\PY{n}{numbers}\PY{p}{[}\PY{n}{x}\PY{p}{]}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{+}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ author: }\PY{l+s+s1}{\PYZsq{}}\PY{o}{+}\PY{n}{dfauthor}\PY{o}{.}\PY{n}{iat}\PY{p}{[}\PY{n}{numbers}\PY{p}{[}\PY{n}{x}\PY{p}{]}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+C:\textbackslash{}Program Files (x86)\textbackslash{}Microsoft Visual Studio\textbackslash{}Shared\textbackslash{}Anaconda3\_64\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}ipykernel\_launcher.py:4: RuntimeWarning: overflow encountered in longlong\_scalars
+  after removing the cwd from sys.path.
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+> predicted='ROCK', actual='ROCK' song: Passion Rules the Game  author: Scorpions
+> predicted='ROCK', actual='ROCK' song: Still Loving You  author: Scorpions
+> predicted='ROCK', actual='Metal' song: BYOB   author: System of a Down
+
+    \end{Verbatim}
+
+    \subsubsection{- finding closest songs}\label{finding-closest-songs}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}74}]:} \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{concat}\PY{p}{(}\PY{p}{[}\PY{n}{dfhashes}\PY{p}{,} \PY{n}{dfstyle}\PY{p}{]}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{join}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{inner}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{df\PYZus{}hashes\PYZus{}names} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{concat}\PY{p}{(}\PY{p}{[}\PY{n}{dfhashes\PYZus{}set}\PY{p}{,} \PY{n}{dfname\PYZus{}set}\PY{p}{]} \PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}75}]:} \PY{n}{df\PYZus{}hashes\PYZus{}names}\PY{o}{=}\PY{n}{df\PYZus{}hashes\PYZus{}names}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}76}]:} \PY{n}{trainingSet}\PY{o}{=}\PY{p}{[}\PY{p}{]}
+         \PY{n}{testSet}\PY{o}{=}\PY{p}{[}\PY{n}{df\PYZus{}hashes\PYZus{}names}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{l+m+mi}{10}\PY{p}{,}\PY{p}{:}\PY{p}{]}\PY{p}{,}\PY{n}{df\PYZus{}hashes\PYZus{}names}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{l+m+mi}{6}\PY{p}{,}\PY{p}{:}\PY{p}{]}\PY{p}{]}
+         \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{df\PYZus{}hashes\PYZus{}names}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+             \PY{n}{trainingSet}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{df\PYZus{}hashes\PYZus{}names}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{x}\PY{p}{,}\PY{p}{:}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}82}]:} \PY{n}{predictions}\PY{o}{=}\PY{p}{[}\PY{p}{]}
+         \PY{n}{k} \PY{o}{=} \PY{l+m+mi}{5}
+         \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{testSet}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+             \PY{n}{neighbors} \PY{o}{=} \PY{n}{getNeighbors}\PY{p}{(}\PY{n}{trainingSet}\PY{p}{,} \PY{n}{testSet}\PY{p}{[}\PY{n}{x}\PY{p}{]}\PY{p}{,} \PY{n}{k}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZgt{} search for }\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n+nb}{repr}\PY{p}{(}\PY{n}{testSet}\PY{p}{[}\PY{n}{x}\PY{p}{]}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{neighbors}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                 \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{closest=}\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{neighbors}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+C:\textbackslash{}Program Files (x86)\textbackslash{}Microsoft Visual Studio\textbackslash{}Shared\textbackslash{}Anaconda3\_64\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}ipykernel\_launcher.py:4: RuntimeWarning: overflow encountered in longlong\_scalars
+  after removing the cwd from sys.path.
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+> search for 'Homage for Satan '
+closest=Homage for Satan 
+closest=Passion Rules the Game 
+closest=Sweet Lady  
+closest=No one like you 
+closest=I Wanna Grow Old With You 
+> search for 'A Thousand Years '
+closest=A Thousand Years 
+closest=Wonderwall 
+closest=I'm Goin' Mad 
+closest=Despacito 
+closest=Always Somewhere 
+
+    \end{Verbatim}
+
+    \subsubsection{- neural network for prediction
+genre}\label{neural-network-for-prediction-genre}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}84}]:} \PY{n}{dfname} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data\PYZus{}tittles.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{,}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{header}\PY{o}{=}\PY{k+kc}{None}\PY{p}{)}
+         \PY{n}{dfname}\PY{o}{.}\PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Title}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+         \PY{n}{dfgenre} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data\PYZus{}styles.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{,}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{header}\PY{o}{=}\PY{k+kc}{None}\PY{p}{)}
+         \PY{n}{dfgenre}\PY{o}{.}\PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Genre}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{dfgenre}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Genre}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{dfgenre}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Genre}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{str}\PY{o}{.}\PY{n}{strip}\PY{p}{(}\PY{p}{)}
+         \PY{n}{dfauthor} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data\PYZus{}authors.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{,}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{header}\PY{o}{=}\PY{k+kc}{None}\PY{p}{)}
+         \PY{n}{dfauthor}\PY{o}{.}\PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Author}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+         \PY{n}{dfhashes} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{,}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{header}\PY{o}{=}\PY{k+kc}{None}\PY{p}{)}
+         \PY{n}{df\PYZus{}full} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{concat}\PY{p}{(}\PY{p}{[}\PY{n}{dfhashes}\PY{p}{,}\PY{n}{dfauthor}\PY{p}{,}\PY{n}{dfname}\PY{p}{,}\PY{n}{dfgenre}\PY{p}{]} \PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{df\PYZus{}full}\PY{o}{=}\PY{n}{df\PYZus{}full}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}
+         \PY{n}{dfhashes}\PY{o}{=}\PY{n}{dfhashes}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}85}]:} \PY{k+kn}{import} \PY{n+nn}{glob}
+         \PY{k+kn}{import} \PY{n+nn}{os}
+         \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+         \PY{k+kn}{import} \PY{n+nn}{keras}
+         \PY{k+kn}{from} \PY{n+nn}{keras}\PY{n+nn}{.}\PY{n+nn}{layers} \PY{k}{import} \PY{n}{Input}\PY{p}{,} \PY{n}{Activation}\PY{p}{,} \PY{n}{Dense}\PY{p}{,} \PY{n}{BatchNormalization}\PY{p}{,}\PY{n}{Dropout}
+         \PY{k+kn}{from} \PY{n+nn}{keras}\PY{n+nn}{.}\PY{n+nn}{models} \PY{k}{import} \PY{n}{Model}\PY{p}{,} \PY{n}{Sequential}
+         \PY{k+kn}{from} \PY{n+nn}{keras}\PY{n+nn}{.}\PY{n+nn}{callbacks} \PY{k}{import} \PY{n}{ModelCheckpoint}\PY{p}{,}\PY{n}{Callback}
+         \PY{k+kn}{import} \PY{n+nn}{keras}\PY{n+nn}{.}\PY{n+nn}{backend} \PY{k}{as} \PY{n+nn}{K}
+         \PY{k+kn}{from} \PY{n+nn}{keras}\PY{n+nn}{.}\PY{n+nn}{optimizers} \PY{k}{import} \PY{n}{SGD}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+C:\textbackslash{}Program Files (x86)\textbackslash{}Microsoft Visual Studio\textbackslash{}Shared\textbackslash{}Anaconda3\_64\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}h5py\textbackslash{}\_\_init\_\_.py:34: FutureWarning: Conversion of the second argument of issubdtype from `float` to `np.floating` is deprecated. In future, it will be treated as `np.float64 == np.dtype(float).type`.
+  from .\_conv import register\_converters as \_register\_converters
+Using TensorFlow backend.
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}86}]:} \PY{n}{model} \PY{o}{=} \PY{n}{Sequential}\PY{p}{(}\PY{p}{)}
+         \PY{n}{model}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{Dense}\PY{p}{(}\PY{n}{units}\PY{o}{=}\PY{l+m+mi}{5215}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{activation}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sigmoid}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{input\PYZus{}dim}\PY{o}{=}\PY{l+m+mi}{5215}\PY{p}{)}\PY{p}{)}
+         \PY{n}{model}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{Dense}\PY{p}{(}\PY{n}{units}\PY{o}{=}\PY{l+m+mi}{1000}\PY{p}{,} \PY{n}{activation}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sigmoid}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}model.add(Dropout(0.1))}
+         \PY{n}{model}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{Dense}\PY{p}{(}\PY{n}{units}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{,} \PY{n}{activation}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{softmax}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{sgd} \PY{o}{=} \PY{n}{SGD}\PY{p}{(}\PY{n}{lr}\PY{o}{=}\PY{l+m+mf}{0.01}\PY{p}{,} \PY{n}{momentum}\PY{o}{=}\PY{l+m+mf}{0.9}\PY{p}{,} \PY{n}{decay}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{nesterov}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{adam} \PY{o}{=} \PY{n}{keras}\PY{o}{.}\PY{n}{optimizers}\PY{o}{.}\PY{n}{Adam}\PY{p}{(}\PY{n}{lr}\PY{o}{=}\PY{l+m+mf}{0.001}\PY{p}{,} \PY{n}{beta\PYZus{}1}\PY{o}{=}\PY{l+m+mf}{0.9}\PY{p}{,} \PY{n}{beta\PYZus{}2}\PY{o}{=}\PY{l+m+mf}{0.999}\PY{p}{,} \PY{n}{epsilon}\PY{o}{=}\PY{k+kc}{None}\PY{p}{,} \PY{n}{decay}\PY{o}{=}\PY{l+m+mf}{0.0}\PY{p}{,} \PY{n}{amsgrad}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+         
+         \PY{n}{model}\PY{o}{.}\PY{n}{compile}\PY{p}{(}\PY{n}{loss}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{categorical\PYZus{}crossentropy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{optimizer}\PY{o}{=}\PY{n}{sgd}\PY{p}{,} \PY{n}{metrics}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{accuracy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         
+         \PY{n}{model}\PY{o}{.}\PY{n}{summary}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+Layer (type)                 Output Shape              Param \#   
+=================================================================
+dense\_1 (Dense)              (None, 10430)             54402880  
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+dense\_2 (Dense)              (None, 1000)              10431000  
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+dense\_3 (Dense)              (None, 5)                 5005      
+=================================================================
+Total params: 64,838,885
+Trainable params: 64,838,885
+Non-trainable params: 0
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}87}]:} \PY{k}{def} \PY{n+nf}{genreToVector}\PY{p}{(}\PY{n}{genre}\PY{p}{)}\PY{p}{:}
+             \PY{n}{genres} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{POP}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CLASSIC}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{UNKNOWN}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ROCK}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Metal}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+             \PY{n}{vector} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{*} \PY{n+nb}{len}\PY{p}{(}\PY{n}{genres}\PY{p}{)}
+             \PY{n}{vector}\PY{p}{[}\PY{n}{genres}\PY{o}{.}\PY{n}{index}\PY{p}{(}\PY{n}{genre}\PY{p}{)}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{1}
+             \PY{k}{return} \PY{n}{vector}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}88}]:} \PY{k}{def} \PY{n+nf}{vectorToGenre}\PY{p}{(}\PY{n}{vector}\PY{p}{)}\PY{p}{:}
+             \PY{n}{genres} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{POP}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CLASSIC}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{UNKNOWN}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ROCK}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Metal}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+             \PY{n}{genre} \PY{o}{=} \PY{n}{genres}\PY{p}{[}\PY{n}{np}\PY{o}{.}\PY{n}{where}\PY{p}{(}\PY{n}{vector}\PY{o}{==}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{]}
+             \PY{k}{return} \PY{n}{genre}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}89}]:} \PY{n}{genre\PYZus{}train\PYZus{}str} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{df\PYZus{}full}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Genre}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{genre\PYZus{}train} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{map}\PY{p}{(}\PY{n}{genreToVector}\PY{p}{,} \PY{n}{genre\PYZus{}train\PYZus{}str}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{data\PYZus{}train\PYZus{}nonorm} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{dfhashes}\PY{p}{)}
+         \PY{n}{data\PYZus{}train} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{*}\PY{n+nb}{len}\PY{p}{(}\PY{n}{data\PYZus{}train\PYZus{}nonorm}\PY{p}{)}
+         
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{data\PYZus{}train\PYZus{}nonorm}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+             \PY{n}{data\PYZus{}train}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{data\PYZus{}train\PYZus{}nonorm}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{/}\PY{n+nb}{float}\PY{p}{(}\PY{n+nb}{max}\PY{p}{(}\PY{n}{data\PYZus{}train\PYZus{}nonorm}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+              
+         \PY{n}{data\PYZus{}train} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{data\PYZus{}train}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}90}]:} \PY{c+c1}{\PYZsh{}earlystop = keras.callbacks.EarlyStopping(monitor=\PYZsq{}loss\PYZsq{}, min\PYZus{}delta=1e\PYZhy{}5, patience=5, verbose=1, mode=\PYZsq{}auto\PYZsq{})}
+         \PY{n}{model}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{data\PYZus{}train}\PY{p}{,} \PY{n}{genre\PYZus{}train}\PY{p}{,} \PY{n}{epochs}\PY{o}{=}\PY{l+m+mi}{200}\PY{p}{,} \PY{n}{batch\PYZus{}size}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Epoch 1/200
+71/71 [==============================] - 17s 232ms/step - loss: 2.8564 - acc: 0.3099
+Epoch 2/200
+71/71 [==============================] - 14s 197ms/step - loss: 1.7149 - acc: 0.4648
+Epoch 3/200
+71/71 [==============================] - 14s 197ms/step - loss: 1.2901 - acc: 0.4366
+Epoch 4/200
+71/71 [==============================] - 14s 191ms/step - loss: 1.3377 - acc: 0.4507
+Epoch 5/200
+71/71 [==============================] - 14s 192ms/step - loss: 1.2845 - acc: 0.4507
+Epoch 6/200
+71/71 [==============================] - 14s 194ms/step - loss: 1.2614 - acc: 0.3944
+Epoch 7/200
+71/71 [==============================] - 14s 196ms/step - loss: 1.2709 - acc: 0.3803
+Epoch 8/200
+71/71 [==============================] - 14s 197ms/step - loss: 1.1919 - acc: 0.5493
+Epoch 9/200
+71/71 [==============================] - 14s 198ms/step - loss: 1.2928 - acc: 0.3803
+Epoch 10/200
+71/71 [==============================] - 14s 196ms/step - loss: 1.2262 - acc: 0.5070
+Epoch 11/200
+71/71 [==============================] - 13s 189ms/step - loss: 1.2290 - acc: 0.4648
+Epoch 12/200
+71/71 [==============================] - 13s 189ms/step - loss: 1.2163 - acc: 0.5211
+Epoch 13/200
+71/71 [==============================] - 13s 189ms/step - loss: 1.2064 - acc: 0.4648
+Epoch 14/200
+71/71 [==============================] - 13s 189ms/step - loss: 1.1835 - acc: 0.5070
+Epoch 15/200
+71/71 [==============================] - 13s 190ms/step - loss: 1.1691 - acc: 0.5070
+Epoch 16/200
+71/71 [==============================] - 13s 189ms/step - loss: 1.1466 - acc: 0.4930
+Epoch 17/200
+71/71 [==============================] - 14s 192ms/step - loss: 1.1401 - acc: 0.5493
+Epoch 18/200
+71/71 [==============================] - 13s 189ms/step - loss: 1.1849 - acc: 0.4930
+Epoch 19/200
+71/71 [==============================] - 13s 189ms/step - loss: 1.1015 - acc: 0.5070
+Epoch 20/200
+71/71 [==============================] - 13s 189ms/step - loss: 1.1449 - acc: 0.4789
+Epoch 21/200
+71/71 [==============================] - 13s 190ms/step - loss: 1.1145 - acc: 0.5352
+Epoch 22/200
+71/71 [==============================] - 13s 189ms/step - loss: 1.1309 - acc: 0.4366
+Epoch 23/200
+71/71 [==============================] - 13s 188ms/step - loss: 1.1704 - acc: 0.5352
+Epoch 24/200
+71/71 [==============================] - 13s 189ms/step - loss: 1.1493 - acc: 0.5211
+Epoch 25/200
+71/71 [==============================] - 14s 192ms/step - loss: 1.1449 - acc: 0.4648
+Epoch 26/200
+71/71 [==============================] - 14s 194ms/step - loss: 1.0467 - acc: 0.4930
+Epoch 27/200
+71/71 [==============================] - 13s 188ms/step - loss: 1.0603 - acc: 0.4507
+Epoch 28/200
+71/71 [==============================] - 13s 189ms/step - loss: 1.0750 - acc: 0.5352
+Epoch 29/200
+71/71 [==============================] - 13s 190ms/step - loss: 1.1252 - acc: 0.4930
+Epoch 30/200
+71/71 [==============================] - 14s 190ms/step - loss: 1.0809 - acc: 0.4789
+Epoch 31/200
+71/71 [==============================] - 13s 189ms/step - loss: 1.0724 - acc: 0.4930
+Epoch 32/200
+71/71 [==============================] - 13s 189ms/step - loss: 1.0169 - acc: 0.5352
+Epoch 33/200
+71/71 [==============================] - 13s 189ms/step - loss: 1.1601 - acc: 0.5070
+Epoch 34/200
+71/71 [==============================] - 13s 190ms/step - loss: 1.0876 - acc: 0.4648
+Epoch 35/200
+71/71 [==============================] - 14s 193ms/step - loss: 1.0379 - acc: 0.4789
+Epoch 36/200
+71/71 [==============================] - 13s 189ms/step - loss: 0.9943 - acc: 0.5070
+Epoch 37/200
+71/71 [==============================] - 14s 192ms/step - loss: 1.0924 - acc: 0.5352
+Epoch 38/200
+71/71 [==============================] - 13s 190ms/step - loss: 1.0284 - acc: 0.5211
+Epoch 39/200
+71/71 [==============================] - 14s 192ms/step - loss: 0.9739 - acc: 0.5352
+Epoch 40/200
+71/71 [==============================] - 13s 188ms/step - loss: 1.0125 - acc: 0.5352
+Epoch 41/200
+71/71 [==============================] - 13s 188ms/step - loss: 1.0160 - acc: 0.5352
+Epoch 42/200
+71/71 [==============================] - 13s 188ms/step - loss: 1.0263 - acc: 0.5634
+Epoch 43/200
+71/71 [==============================] - 14s 190ms/step - loss: 1.0020 - acc: 0.5634
+Epoch 44/200
+71/71 [==============================] - 14s 191ms/step - loss: 0.9759 - acc: 0.5634
+Epoch 45/200
+71/71 [==============================] - 13s 189ms/step - loss: 1.0504 - acc: 0.4366
+Epoch 46/200
+71/71 [==============================] - 13s 189ms/step - loss: 0.9975 - acc: 0.5634
+Epoch 47/200
+71/71 [==============================] - 13s 190ms/step - loss: 1.0161 - acc: 0.5352
+Epoch 48/200
+71/71 [==============================] - 14s 191ms/step - loss: 0.9425 - acc: 0.5493
+Epoch 49/200
+71/71 [==============================] - 13s 189ms/step - loss: 0.9520 - acc: 0.5775
+Epoch 50/200
+71/71 [==============================] - 13s 189ms/step - loss: 0.9351 - acc: 0.5915
+Epoch 51/200
+71/71 [==============================] - 13s 189ms/step - loss: 0.9214 - acc: 0.5211
+Epoch 52/200
+71/71 [==============================] - 14s 192ms/step - loss: 1.0036 - acc: 0.5211
+Epoch 53/200
+71/71 [==============================] - 15s 208ms/step - loss: 0.9543 - acc: 0.6056
+Epoch 54/200
+71/71 [==============================] - 16s 226ms/step - loss: 0.9682 - acc: 0.5211
+Epoch 55/200
+71/71 [==============================] - 15s 211ms/step - loss: 0.9333 - acc: 0.5211
+Epoch 56/200
+71/71 [==============================] - 15s 207ms/step - loss: 0.8984 - acc: 0.6338
+Epoch 57/200
+71/71 [==============================] - 13s 188ms/step - loss: 0.9241 - acc: 0.5775
+Epoch 58/200
+71/71 [==============================] - 13s 188ms/step - loss: 0.9354 - acc: 0.6338
+Epoch 59/200
+71/71 [==============================] - 13s 189ms/step - loss: 0.9458 - acc: 0.5775
+Epoch 60/200
+71/71 [==============================] - 13s 189ms/step - loss: 0.9040 - acc: 0.5915
+Epoch 61/200
+71/71 [==============================] - 14s 192ms/step - loss: 0.9176 - acc: 0.6056
+Epoch 62/200
+71/71 [==============================] - 13s 189ms/step - loss: 0.8517 - acc: 0.6197
+Epoch 63/200
+71/71 [==============================] - 14s 193ms/step - loss: 0.9173 - acc: 0.5775
+Epoch 64/200
+71/71 [==============================] - 15s 209ms/step - loss: 0.8601 - acc: 0.6479
+Epoch 65/200
+71/71 [==============================] - 13s 190ms/step - loss: 0.9111 - acc: 0.5634
+Epoch 66/200
+71/71 [==============================] - 14s 191ms/step - loss: 0.8487 - acc: 0.6479
+Epoch 67/200
+71/71 [==============================] - 15s 205ms/step - loss: 0.8950 - acc: 0.6620
+Epoch 68/200
+71/71 [==============================] - 14s 191ms/step - loss: 0.8830 - acc: 0.6197
+Epoch 69/200
+71/71 [==============================] - 14s 193ms/step - loss: 0.8111 - acc: 0.6338
+Epoch 70/200
+71/71 [==============================] - 14s 197ms/step - loss: 1.0874 - acc: 0.4930
+Epoch 71/200
+71/71 [==============================] - 13s 189ms/step - loss: 0.8981 - acc: 0.5634
+Epoch 72/200
+71/71 [==============================] - 13s 190ms/step - loss: 0.8798 - acc: 0.5775
+Epoch 73/200
+71/71 [==============================] - 13s 189ms/step - loss: 0.8296 - acc: 0.7042
+Epoch 74/200
+71/71 [==============================] - 13s 190ms/step - loss: 0.8601 - acc: 0.6056
+Epoch 75/200
+71/71 [==============================] - 13s 189ms/step - loss: 0.9654 - acc: 0.5775
+Epoch 76/200
+71/71 [==============================] - 14s 193ms/step - loss: 0.8764 - acc: 0.6197
+Epoch 77/200
+71/71 [==============================] - 13s 190ms/step - loss: 0.8857 - acc: 0.6901
+Epoch 78/200
+71/71 [==============================] - 15s 217ms/step - loss: 0.9511 - acc: 0.5634
+Epoch 79/200
+71/71 [==============================] - 17s 245ms/step - loss: 0.8113 - acc: 0.5915
+Epoch 80/200
+71/71 [==============================] - 18s 260ms/step - loss: 0.8219 - acc: 0.6620
+Epoch 81/200
+71/71 [==============================] - 19s 267ms/step - loss: 0.8050 - acc: 0.6338
+Epoch 82/200
+71/71 [==============================] - 19s 272ms/step - loss: 0.8322 - acc: 0.6338
+Epoch 83/200
+71/71 [==============================] - 19s 272ms/step - loss: 0.7710 - acc: 0.6901
+Epoch 84/200
+71/71 [==============================] - 18s 258ms/step - loss: 0.7765 - acc: 0.6761
+Epoch 85/200
+71/71 [==============================] - 19s 271ms/step - loss: 0.7777 - acc: 0.7042
+Epoch 86/200
+71/71 [==============================] - 19s 264ms/step - loss: 0.8030 - acc: 0.6338
+Epoch 87/200
+71/71 [==============================] - 19s 267ms/step - loss: 0.7215 - acc: 0.7042
+Epoch 88/200
+71/71 [==============================] - 19s 266ms/step - loss: 0.6926 - acc: 0.6901
+Epoch 89/200
+71/71 [==============================] - 19s 263ms/step - loss: 0.7125 - acc: 0.6761
+Epoch 90/200
+71/71 [==============================] - 19s 264ms/step - loss: 0.7955 - acc: 0.6479
+Epoch 91/200
+71/71 [==============================] - 19s 272ms/step - loss: 0.6990 - acc: 0.7042
+Epoch 92/200
+71/71 [==============================] - 19s 268ms/step - loss: 0.7437 - acc: 0.6761
+Epoch 93/200
+71/71 [==============================] - 19s 265ms/step - loss: 0.6686 - acc: 0.7324
+Epoch 94/200
+71/71 [==============================] - 19s 262ms/step - loss: 0.6385 - acc: 0.7606
+Epoch 95/200
+71/71 [==============================] - 19s 266ms/step - loss: 0.7434 - acc: 0.6338
+Epoch 96/200
+71/71 [==============================] - 19s 270ms/step - loss: 0.7021 - acc: 0.7042
+Epoch 97/200
+71/71 [==============================] - 21s 289ms/step - loss: 0.5949 - acc: 0.7465
+Epoch 98/200
+71/71 [==============================] - 19s 271ms/step - loss: 0.7038 - acc: 0.6901
+Epoch 99/200
+71/71 [==============================] - 19s 264ms/step - loss: 0.5815 - acc: 0.8028
+Epoch 100/200
+71/71 [==============================] - 19s 269ms/step - loss: 0.7438 - acc: 0.6479
+Epoch 101/200
+71/71 [==============================] - 19s 265ms/step - loss: 0.6480 - acc: 0.6901
+Epoch 102/200
+71/71 [==============================] - 19s 265ms/step - loss: 0.6947 - acc: 0.7183
+Epoch 103/200
+71/71 [==============================] - 19s 269ms/step - loss: 0.5939 - acc: 0.7606
+Epoch 104/200
+71/71 [==============================] - 20s 275ms/step - loss: 0.5438 - acc: 0.7465
+Epoch 105/200
+71/71 [==============================] - 19s 267ms/step - loss: 0.4991 - acc: 0.8451
+Epoch 106/200
+71/71 [==============================] - 19s 266ms/step - loss: 0.4673 - acc: 0.8028
+Epoch 107/200
+71/71 [==============================] - 19s 268ms/step - loss: 0.5184 - acc: 0.7746
+Epoch 108/200
+71/71 [==============================] - 19s 266ms/step - loss: 0.6038 - acc: 0.7324
+Epoch 109/200
+71/71 [==============================] - 19s 269ms/step - loss: 0.5121 - acc: 0.8592
+Epoch 110/200
+71/71 [==============================] - 19s 273ms/step - loss: 0.5159 - acc: 0.8310
+Epoch 111/200
+71/71 [==============================] - 19s 265ms/step - loss: 0.3997 - acc: 0.8169
+Epoch 112/200
+71/71 [==============================] - 19s 268ms/step - loss: 0.3832 - acc: 0.8873
+Epoch 113/200
+71/71 [==============================] - 19s 269ms/step - loss: 0.3406 - acc: 0.8451
+Epoch 114/200
+71/71 [==============================] - 19s 266ms/step - loss: 0.3446 - acc: 0.9014
+Epoch 115/200
+71/71 [==============================] - 19s 264ms/step - loss: 0.3496 - acc: 0.9155
+Epoch 116/200
+71/71 [==============================] - 19s 272ms/step - loss: 0.4317 - acc: 0.8592
+Epoch 117/200
+71/71 [==============================] - 19s 266ms/step - loss: 0.4872 - acc: 0.8310
+Epoch 118/200
+71/71 [==============================] - 19s 271ms/step - loss: 0.7486 - acc: 0.7042
+Epoch 119/200
+71/71 [==============================] - 19s 266ms/step - loss: 0.3040 - acc: 0.9437
+Epoch 120/200
+71/71 [==============================] - 19s 265ms/step - loss: 0.3062 - acc: 0.8873
+Epoch 121/200
+71/71 [==============================] - 19s 265ms/step - loss: 0.1965 - acc: 0.9577
+Epoch 122/200
+71/71 [==============================] - 19s 264ms/step - loss: 0.3304 - acc: 0.8732
+Epoch 123/200
+71/71 [==============================] - 19s 270ms/step - loss: 0.1780 - acc: 0.9437
+Epoch 124/200
+71/71 [==============================] - 19s 262ms/step - loss: 0.4113 - acc: 0.8451
+Epoch 125/200
+71/71 [==============================] - 19s 269ms/step - loss: 0.4134 - acc: 0.8592
+Epoch 126/200
+71/71 [==============================] - 19s 264ms/step - loss: 0.7960 - acc: 0.7324
+Epoch 127/200
+71/71 [==============================] - 19s 267ms/step - loss: 0.3653 - acc: 0.8732
+Epoch 128/200
+71/71 [==============================] - 19s 264ms/step - loss: 0.3147 - acc: 0.9014
+Epoch 129/200
+71/71 [==============================] - 19s 271ms/step - loss: 0.3339 - acc: 0.8732
+Epoch 130/200
+71/71 [==============================] - 19s 269ms/step - loss: 0.1462 - acc: 0.9437
+Epoch 131/200
+71/71 [==============================] - 19s 265ms/step - loss: 0.1427 - acc: 0.9718
+Epoch 132/200
+71/71 [==============================] - 19s 263ms/step - loss: 0.1000 - acc: 0.9718
+Epoch 133/200
+71/71 [==============================] - 19s 264ms/step - loss: 0.0978 - acc: 0.9718
+Epoch 134/200
+71/71 [==============================] - 19s 271ms/step - loss: 0.1076 - acc: 0.9859
+Epoch 135/200
+71/71 [==============================] - 20s 279ms/step - loss: 0.0958 - acc: 0.9859
+Epoch 136/200
+71/71 [==============================] - 19s 274ms/step - loss: 0.0925 - acc: 0.9718
+Epoch 137/200
+71/71 [==============================] - 19s 274ms/step - loss: 0.1540 - acc: 0.9437
+Epoch 138/200
+71/71 [==============================] - 19s 269ms/step - loss: 0.4208 - acc: 0.9577
+Epoch 139/200
+71/71 [==============================] - 20s 276ms/step - loss: 1.4502 - acc: 0.7183
+Epoch 140/200
+71/71 [==============================] - 20s 281ms/step - loss: 0.2704 - acc: 0.9296
+Epoch 141/200
+71/71 [==============================] - 20s 282ms/step - loss: 0.2422 - acc: 0.9296
+Epoch 142/200
+71/71 [==============================] - 20s 280ms/step - loss: 0.1647 - acc: 0.9437
+Epoch 143/200
+71/71 [==============================] - 19s 273ms/step - loss: 0.1268 - acc: 0.9718
+Epoch 144/200
+71/71 [==============================] - 20s 279ms/step - loss: 0.1254 - acc: 0.9718
+Epoch 145/200
+71/71 [==============================] - 20s 275ms/step - loss: 0.0998 - acc: 0.9718
+Epoch 146/200
+71/71 [==============================] - 20s 275ms/step - loss: 0.1606 - acc: 0.9296
+Epoch 147/200
+71/71 [==============================] - 19s 272ms/step - loss: 0.2967 - acc: 0.8873
+Epoch 148/200
+71/71 [==============================] - 20s 279ms/step - loss: 0.0565 - acc: 1.0000
+Epoch 149/200
+71/71 [==============================] - 19s 271ms/step - loss: 0.0484 - acc: 1.0000
+Epoch 150/200
+71/71 [==============================] - 19s 270ms/step - loss: 0.0500 - acc: 1.0000
+Epoch 151/200
+71/71 [==============================] - 19s 273ms/step - loss: 0.0376 - acc: 1.0000
+Epoch 152/200
+71/71 [==============================] - 19s 274ms/step - loss: 0.0455 - acc: 1.0000
+Epoch 153/200
+71/71 [==============================] - 19s 271ms/step - loss: 0.0351 - acc: 1.0000
+Epoch 154/200
+71/71 [==============================] - 20s 277ms/step - loss: 0.0362 - acc: 1.0000
+Epoch 155/200
+71/71 [==============================] - 20s 281ms/step - loss: 0.0272 - acc: 1.0000
+Epoch 156/200
+71/71 [==============================] - 21s 295ms/step - loss: 0.0285 - acc: 1.0000
+Epoch 157/200
+71/71 [==============================] - 20s 280ms/step - loss: 0.0244 - acc: 1.0000
+Epoch 158/200
+71/71 [==============================] - 19s 272ms/step - loss: 0.0233 - acc: 1.0000
+Epoch 159/200
+71/71 [==============================] - 19s 268ms/step - loss: 0.0213 - acc: 1.0000
+Epoch 160/200
+71/71 [==============================] - 20s 280ms/step - loss: 0.0201 - acc: 1.0000
+Epoch 161/200
+71/71 [==============================] - 19s 271ms/step - loss: 0.0236 - acc: 1.0000
+Epoch 162/200
+71/71 [==============================] - 19s 264ms/step - loss: 0.0202 - acc: 1.0000
+Epoch 163/200
+71/71 [==============================] - 19s 270ms/step - loss: 0.0215 - acc: 1.0000
+Epoch 164/200
+71/71 [==============================] - 19s 271ms/step - loss: 0.0179 - acc: 1.0000
+Epoch 165/200
+71/71 [==============================] - 19s 270ms/step - loss: 0.0148 - acc: 1.0000
+Epoch 166/200
+71/71 [==============================] - 20s 279ms/step - loss: 0.0160 - acc: 1.0000
+Epoch 167/200
+71/71 [==============================] - 19s 272ms/step - loss: 0.0132 - acc: 1.0000
+Epoch 168/200
+71/71 [==============================] - 19s 268ms/step - loss: 0.0138 - acc: 1.0000
+Epoch 169/200
+71/71 [==============================] - 19s 271ms/step - loss: 0.0121 - acc: 1.0000
+Epoch 170/200
+71/71 [==============================] - 19s 271ms/step - loss: 0.0132 - acc: 1.0000
+Epoch 171/200
+71/71 [==============================] - 19s 268ms/step - loss: 0.0129 - acc: 1.0000
+Epoch 172/200
+71/71 [==============================] - 19s 274ms/step - loss: 0.0121 - acc: 1.0000
+Epoch 173/200
+71/71 [==============================] - 19s 270ms/step - loss: 0.0106 - acc: 1.0000
+Epoch 174/200
+71/71 [==============================] - 19s 272ms/step - loss: 0.0102 - acc: 1.0000
+Epoch 175/200
+71/71 [==============================] - 19s 269ms/step - loss: 0.0103 - acc: 1.0000
+Epoch 176/200
+71/71 [==============================] - 20s 287ms/step - loss: 0.0095 - acc: 1.0000
+Epoch 177/200
+71/71 [==============================] - 20s 281ms/step - loss: 0.0097 - acc: 1.0000
+Epoch 178/200
+71/71 [==============================] - 19s 270ms/step - loss: 0.0084 - acc: 1.0000
+Epoch 179/200
+71/71 [==============================] - 20s 276ms/step - loss: 0.0088 - acc: 1.0000
+Epoch 180/200
+71/71 [==============================] - 19s 267ms/step - loss: 0.0083 - acc: 1.0000
+Epoch 181/200
+71/71 [==============================] - 19s 269ms/step - loss: 0.0080 - acc: 1.0000
+Epoch 182/200
+71/71 [==============================] - 20s 276ms/step - loss: 0.0088 - acc: 1.0000
+Epoch 183/200
+71/71 [==============================] - 20s 279ms/step - loss: 0.0078 - acc: 1.0000
+Epoch 184/200
+71/71 [==============================] - 20s 275ms/step - loss: 0.0085 - acc: 1.0000
+Epoch 185/200
+71/71 [==============================] - 20s 281ms/step - loss: 0.0073 - acc: 1.0000
+Epoch 186/200
+71/71 [==============================] - 19s 272ms/step - loss: 0.0071 - acc: 1.0000
+Epoch 187/200
+71/71 [==============================] - 19s 268ms/step - loss: 0.0074 - acc: 1.0000
+Epoch 188/200
+71/71 [==============================] - 19s 271ms/step - loss: 0.0068 - acc: 1.0000
+Epoch 189/200
+71/71 [==============================] - 19s 266ms/step - loss: 0.0069 - acc: 1.0000
+Epoch 190/200
+71/71 [==============================] - 20s 280ms/step - loss: 0.0066 - acc: 1.0000
+Epoch 191/200
+71/71 [==============================] - 20s 283ms/step - loss: 0.0065 - acc: 1.0000
+Epoch 192/200
+71/71 [==============================] - 19s 273ms/step - loss: 0.0061 - acc: 1.0000
+Epoch 193/200
+71/71 [==============================] - 20s 275ms/step - loss: 0.0063 - acc: 1.0000
+Epoch 194/200
+71/71 [==============================] - 19s 268ms/step - loss: 0.0057 - acc: 1.0000
+Epoch 195/200
+71/71 [==============================] - 19s 270ms/step - loss: 0.0065 - acc: 1.0000
+Epoch 196/200
+71/71 [==============================] - 19s 270ms/step - loss: 0.0062 - acc: 1.0000
+Epoch 197/200
+71/71 [==============================] - 17s 246ms/step - loss: 0.0070 - acc: 1.0000
+Epoch 198/200
+71/71 [==============================] - 17s 236ms/step - loss: 0.0058 - acc: 1.0000
+Epoch 199/200
+71/71 [==============================] - 17s 236ms/step - loss: 0.0051 - acc: 1.0000
+Epoch 200/200
+71/71 [==============================] - 17s 235ms/step - loss: 0.0053 - acc: 1.0000
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}90}]:} <keras.callbacks.History at 0x172a4d8b278>
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}93}]:} \PY{n}{end\PYZus{}result} \PY{o}{=} \PY{n}{model}\PY{o}{.}\PY{n}{evaluate}\PY{p}{(}\PY{n}{x\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{batch\PYZus{}size}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{loss\PYZus{}and\PYZus{}metrics}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+71/71 [==============================] - 3s 40ms/step
+[0.004926996493120553, 1.0]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}96}]:} \PY{n}{count\PYZus{}t} \PY{o}{=} \PY{l+m+mi}{0}
+         \PY{n}{count\PYZus{}f} \PY{o}{=} \PY{l+m+mi}{0}
+         
+         \PY{k}{for} \PY{n}{line} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{71}\PY{p}{)}\PY{p}{:}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{dfgenre}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{p}{[}\PY{n}{line}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+             \PY{n}{classes} \PY{o}{=} \PY{n}{model}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{dfhashes}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{p}{[}\PY{n}{line}\PY{p}{]}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+             \PY{n}{vector} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}
+             \PY{n}{vector}\PY{p}{[}\PY{n}{np}\PY{o}{.}\PY{n}{where}\PY{p}{(}\PY{n}{classes} \PY{o}{==} \PY{n+nb}{max}\PY{p}{(}\PY{n+nb}{max}\PY{p}{(}\PY{n}{classes}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{1}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{vectorToGenre}\PY{p}{(}\PY{n}{vector}\PY{p}{)}\PY{p}{)}
+             
+             \PY{k}{if} \PY{n}{vectorToGenre}\PY{p}{(}\PY{n}{vector}\PY{p}{)} \PY{o}{==} \PY{n}{dfgenre}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{p}{[}\PY{n}{line}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{:}
+                 \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{True}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                 \PY{n}{count\PYZus{}t} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}  
+             \PY{k}{else} \PY{p}{:}
+                 \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{False}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                 \PY{n}{count\PYZus{}f} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+             \PY{n+nb}{print}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+POP
+POP
+True
+
+POP
+POP
+True
+
+CLASSIC
+CLASSIC
+True
+
+POP
+POP
+True
+
+POP
+POP
+True
+
+UNKNOWN
+ROCK
+False
+
+POP
+POP
+True
+
+POP
+POP
+True
+
+ROCK
+ROCK
+True
+
+POP
+POP
+True
+
+Metal
+Metal
+True
+
+CLASSIC
+CLASSIC
+True
+
+POP
+POP
+True
+
+POP
+POP
+True
+
+POP
+POP
+True
+
+CLASSIC
+CLASSIC
+True
+
+CLASSIC
+CLASSIC
+True
+
+CLASSIC
+CLASSIC
+True
+
+CLASSIC
+CLASSIC
+True
+
+POP
+POP
+True
+
+CLASSIC
+CLASSIC
+True
+
+POP
+POP
+True
+
+CLASSIC
+CLASSIC
+True
+
+POP
+POP
+True
+
+POP
+POP
+True
+
+ROCK
+ROCK
+True
+
+POP
+POP
+True
+
+POP
+POP
+True
+
+POP
+POP
+True
+
+POP
+POP
+True
+
+POP
+POP
+True
+
+ROCK
+ROCK
+True
+
+ROCK
+ROCK
+True
+
+ROCK
+ROCK
+True
+
+ROCK
+ROCK
+True
+
+ROCK
+ROCK
+True
+
+ROCK
+ROCK
+True
+
+ROCK
+ROCK
+True
+
+POP
+POP
+True
+
+ROCK
+ROCK
+True
+
+ROCK
+ROCK
+True
+
+ROCK
+ROCK
+True
+
+ROCK
+ROCK
+True
+
+ROCK
+ROCK
+True
+
+ROCK
+ROCK
+True
+
+ROCK
+ROCK
+True
+
+ROCK
+ROCK
+True
+
+ROCK
+ROCK
+True
+
+ROCK
+ROCK
+True
+
+ROCK
+ROCK
+True
+
+ROCK
+ROCK
+True
+
+ROCK
+ROCK
+True
+
+ROCK
+ROCK
+True
+
+ROCK
+ROCK
+True
+
+ROCK
+ROCK
+True
+
+ROCK
+ROCK
+True
+
+CLASSIC
+CLASSIC
+True
+
+POP
+POP
+True
+
+POP
+POP
+True
+
+Metal
+Metal
+True
+
+CLASSIC
+CLASSIC
+True
+
+Metal
+Metal
+True
+
+POP
+POP
+True
+
+POP
+POP
+True
+
+POP
+POP
+True
+
+POP
+POP
+True
+
+UNKNOWN
+CLASSIC
+False
+
+POP
+POP
+True
+
+POP
+POP
+True
+
+POP
+POP
+True
+
+POP
+POP
+True
+
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}95}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsh{} of true : }\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{count\PYZus{}t}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsh{} of false : }\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{count\PYZus{}f}\PY{p}{)}\PY{p}{)} 
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\# of true : 69
+\# of false : 2
+
+    \end{Verbatim}
+
+    \subsubsection{- Shazam alogithm}\label{shazam-alogithm}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}97}]:} \PY{n}{i\PYZus{}love\PYZus{}this\PYZus{}song} \PY{o}{=} \PY{n}{df\PYZus{}full}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{l+m+mi}{6}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1000}\PY{p}{:}\PY{l+m+mi}{2000}\PY{p}{]}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{str}\PY{p}{(}\PY{n}{df\PYZus{}full}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{l+m+mi}{6}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Author}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+               \PY{o}{+} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ \PYZhy{} }\PY{l+s+s1}{\PYZsq{}}\PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{df\PYZus{}full}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{l+m+mi}{6}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Title}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)} 
+               \PY{o}{+} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{and genre of song is }\PY{l+s+s1}{\PYZsq{}}\PY{o}{+}  \PY{n+nb}{str}\PY{p}{(}\PY{n}{df\PYZus{}full}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{l+m+mi}{6}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Genre}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Christina Perri - A Thousand Years and genre of song is POP
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}98}]:} \PY{k}{def} \PY{n+nf}{subfinder}\PY{p}{(}\PY{n}{mylist}\PY{p}{,} \PY{n}{pattern}\PY{p}{)}\PY{p}{:}
+             \PY{n}{result} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+             \PY{n}{ansv} \PY{o}{=} \PY{k+kc}{False}
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{n+nb}{len}\PY{p}{(}\PY{n}{mylist}\PY{p}{)}\PY{p}{)}\PY{p}{:}   
+                 \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Checking the }\PY{l+s+si}{\PYZob{}0\PYZcb{}}\PY{l+s+s1}{ song for similar interval}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{i}\PY{p}{)}\PY{p}{)}
+                 \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{mylist}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{n+nb}{len}\PY{p}{(}\PY{n}{pattern}\PY{p}{)}\PY{p}{)}\PY{p}{:}            
+                     \PY{k}{if} \PY{n+nb}{list}\PY{p}{(}\PY{n}{pattern}\PY{p}{)} \PY{o}{==} \PY{n+nb}{list}\PY{p}{(}\PY{n}{mylist}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{n}{j}\PY{p}{:}\PY{n}{j} \PY{o}{+} \PY{n+nb}{len}\PY{p}{(}\PY{n}{pattern}\PY{p}{)}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+                          \PY{n}{ansv} \PY{o}{=} \PY{k+kc}{True}
+                 \PY{k}{if} \PY{n}{ansv} \PY{o}{==} \PY{k+kc}{True}\PY{p}{:}
+                     \PY{n}{result}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{mylist}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}
+                     \PY{n}{ansv} \PY{o}{=} \PY{k+kc}{False}
+                     \PY{k}{break}
+             \PY{k}{return} \PY{n}{result}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}99}]:} \PY{n}{ans} \PY{o}{=} \PY{n}{subfinder}\PY{p}{(}\PY{n}{df\PYZus{}full}\PY{p}{,} \PY{n}{df\PYZus{}full}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{l+m+mi}{6}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1000}\PY{p}{:}\PY{l+m+mi}{2000}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Checking the 0 song for similar interval
+Checking the 1 song for similar interval
+Checking the 2 song for similar interval
+Checking the 3 song for similar interval
+Checking the 4 song for similar interval
+Checking the 5 song for similar interval
+Checking the 6 song for similar interval
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{ans} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{ans}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{str}\PY{p}{(}\PY{n}{ans}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Author}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)} \PY{o}{+}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ \PYZhy{} }\PY{l+s+s1}{\PYZsq{}}\PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{ans}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Title}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)} \PY{o}{+}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{and genre of song is }\PY{l+s+s1}{\PYZsq{}}\PY{o}{+}  \PY{n+nb}{str}\PY{p}{(}\PY{n}{ans}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Genre}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \subsubsection{Conclusion}\label{conclusion}
+
+So in our project we were working with song recognition, for that we
+create our new dataset, by algorithm parse it into specific unique
+representation, then we did some data analisys which are visualized on
+graphics in report, unsupervised learning is presented by k-means
+clasteing, and for supervised learning we used few algorithms as KNN and
+neural network, also we used the shazam algorithm for detecting song, as
+result we got genre recognition with accuracy 100\% for neural network,
+and 77\% for KNN, also by KNN we found the most similar songs for chosen
+one, and shazam alogrithm gave us result of song recognition with small
+interval of song as input.
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
